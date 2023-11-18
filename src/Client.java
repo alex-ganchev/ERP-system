@@ -3,7 +3,6 @@ import java.util.Scanner;
 
 public class Client {
     private String name;
-    private ArrayList<Project> projects;
 
     public String getName() {
         return name;
@@ -11,14 +10,6 @@ public class Client {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public ArrayList<Project> getProjects() {
-        return projects;
-    }
-
-    public void setProjects(ArrayList<Project> projects) {
-        this.projects = projects;
     }
 
     public Client(String name) {
@@ -35,13 +26,30 @@ public class Client {
         Menu.adminMenuClientManagement(scanner);
     }
 
-    public static void printAllClients() {
+    public static ArrayList<Client> returnAllClients() {
         ArrayList<Client> clients = FileHandler.readClients();
         System.out.println("------------------------------------");
         for (int i = 0; i < clients.size(); i++) {
             System.out.println(i + 1 + " - " + clients.get(i).getName());
         }
-        //System.out.println("------------------------------------");
+        return clients;
+    }
+
+    public static Client returnSelectedClient(Scanner scanner) {
+        ArrayList<Client> clientsList = returnAllClients();
+        Client client = null;
+        do {
+            System.out.println("------------------------------------");
+            System.out.print("Изберете клиент : ");
+            String input = scanner.next();
+            try {
+                client = clientsList.get(Integer.parseInt(input) - 1);
+            } catch (Exception e) {
+                System.out.println("Въведена е невалидна стойност!");
+            }
+        }
+        while (client == null);
+        return client;
     }
 
     @Override
