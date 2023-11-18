@@ -39,7 +39,6 @@ public abstract class User {
         return null;
     }
 
-
     @Override
     public String toString() {
         return username + ";" + password + ";" + role;

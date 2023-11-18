@@ -88,7 +88,7 @@ public abstract class Menu {
                     Client.addNewClient(scanner);
                     break;
                 case "2":
-                    Client.printAllClients();
+                    Client.returnAllClients();
                     break;
                 case "3":
                     System.out.println("Избрахте изход!");
@@ -107,7 +107,7 @@ public abstract class Menu {
             System.out.println("      УПРАВЛЕНИЕ НА ПРОЕКТИТЕ     ");
             System.out.println("------------------------------------");
             System.out.println("1 - Добавяне на проект");
-            System.out.println("2 - Редактиране на проект");
+            System.out.println("2 - Добавяне на екип");
             System.out.println("3 - Списък на проектите");
             System.out.println("4 - Изход");
             System.out.println("------------------------------------");
@@ -115,13 +115,13 @@ public abstract class Menu {
             input = scanner.next();
             switch (input) {
                 case "1":
-
+                    Project.addNewProject(scanner,Client.returnSelectedClient(scanner));
                     break;
                 case "2":
 
                     break;
                 case "3":
-
+                    Project.printAllProject();
                     break;
                 case "4":
                     System.out.println("Избрахте изход!");
