@@ -15,7 +15,7 @@ public abstract class Menu {
             password = scanner.next();
             activeUser = User.validate(username, password);
             System.out.println("------------------------------------");
-            if(activeUser == null){
+            if (activeUser == null) {
                 System.out.println("Грешно потребителско име или парола!");
                 System.out.println("------------------------------------");
             }
@@ -38,37 +38,128 @@ public abstract class Menu {
         System.out.println("----------------МЕНЮ----------------");
         System.out.println("     ПОТРЕБИТЕЛ: АДМИНИСТРАТОР");
         System.out.println("------------------------------------");
-        do{
-        System.out.println("1 - Регистриране на клиент");
-        System.out.println("2 - Регистриране на проект");
-        System.out.println("3 - Регистриране на потребител");
-        System.out.println("4 - Регистриране на администратор");
-        System.out.println("5 - Показване на статистика");
-        System.out.println("6 - Изход");
-        System.out.println("------------------------------------");
+        do {
+            System.out.println("1 - Управление на клиенти");
+            System.out.println("2 - Управление на проекти");
+            System.out.println("3 - Управление на потребители");
+            System.out.println("4 - Показване на статистика");
+            System.out.println("5 - Изход");
+            System.out.println("------------------------------------");
             System.out.print("Вашият избор : ");
-        input = scanner.next();
-        switch (input) {
-            case "1":
-                break;
-            case "2":
-                break;
-            case "3":
-                registerNewEmployee(scanner);
-                break;
-            case "4":
-                registerNewAdmin(scanner);
-                break;
-            case "5":
-                break;
-            case "6":
-                System.out.println("Избрахте изход!");
-                break;
-            default:
-                System.out.println("Въведена е невалидна стойност!");
-                System.out.println("------------------------------------");
-        }
-        }while(!input.equals("6"));
+            input = scanner.next();
+            switch (input) {
+                case "1":
+                    adminMenuClientManagement(scanner);
+                    break;
+                case "2":
+                    adminMenuProjectManagement(scanner);
+                    break;
+                case "3":
+                    adminMenuUserManagement(scanner);
+                    break;
+                case "4":
+
+                    break;
+                case "5":
+                    System.out.println("Избрахте изход!");
+                    break;
+                default:
+                    System.out.println("Въведена е невалидна стойност!");
+                    System.out.println("------------------------------------");
+            }
+        } while (!input.equals("5"));
+    }
+
+    public static void adminMenuClientManagement(Scanner scanner) {
+        String input;
+        System.out.println("------------------------------------");
+        System.out.println("      УПРАВЛЕНИЕ НА КЛИЕНТИ     ");
+        System.out.println("------------------------------------");
+        do {
+            System.out.println("1 - Добавяне на клиент");
+            System.out.println("2 - Списък на клиентите");
+            System.out.println("3 - Изход");
+            System.out.println("------------------------------------");
+            System.out.print("Вашият избор : ");
+            input = scanner.next();
+            switch (input) {
+                case "1":
+
+                    break;
+                case "2":
+
+                    break;
+                case "3":
+                    System.out.println("Избрахте изход!");
+                    break;
+                default:
+                    System.out.println("Въведена е невалидна стойност!");
+                    System.out.println("------------------------------------");
+            }
+        } while (!input.equals("3"));
+        adminMenu(scanner);
+    }
+    public static void adminMenuProjectManagement(Scanner scanner) {
+        String input;
+        System.out.println("------------------------------------");
+        System.out.println("      УПРАВЛЕНИЕ НА ПРОЕКТИТЕ     ");
+        System.out.println("------------------------------------");
+        do {
+            System.out.println("1 - Добавяне на проект");
+            System.out.println("2 - Редактиране на проект");
+            System.out.println("3 - Списък на проектите");
+            System.out.println("4 - Изход");
+            System.out.println("------------------------------------");
+            System.out.print("Вашият избор : ");
+            input = scanner.next();
+            switch (input) {
+                case "1":
+
+                    break;
+                case "2":
+
+                    break;
+                case "3":
+
+                    break;
+                case "4":
+                    System.out.println("Избрахте изход!");
+                    break;
+                default:
+                    System.out.println("Въведена е невалидна стойност!");
+                    System.out.println("------------------------------------");
+            }
+        } while (!input.equals("4"));
+        adminMenu(scanner);
+    }
+    public static void adminMenuUserManagement(Scanner scanner) {
+        String input;
+        System.out.println("------------------------------------");
+        System.out.println("      УПРАВЛЕНИЕ НА ПОТРЕБИТЕЛИ     ");
+        System.out.println("------------------------------------");
+        do {
+            System.out.println("1 - Добавяне на служител");
+            System.out.println("2 - Добавяне на администратор");
+            System.out.println("3 - Изход");
+            System.out.println("------------------------------------");
+            System.out.print("Вашият избор : ");
+            input = scanner.next();
+            switch (input) {
+                case "1":
+                    Employee.registerNewEmployee(scanner);
+                    break;
+                case "2":
+                    Admin.registerNewAdmin(scanner);
+                    break;
+                case "3":
+                    System.out.println("Избрахте изход!");
+                    break;
+                default:
+                    System.out.println("Въведена е невалидна стойност!");
+                    System.out.println("------------------------------------");
+            }
+        } while (!input.equals("3"));
+        adminMenu(scanner);
     }
 
     public static void employeeMenu(Scanner scanner) {
@@ -80,24 +171,5 @@ public abstract class Menu {
         System.out.println("3 - Изход");
         System.out.println("------------------------------------");
     }
-    public static void registerNewEmployee(Scanner scanner){
-        System.out.println("------------------------------------");
-        System.out.print("Въведете потребителско име : ");
-        String username = scanner.next();
-        System.out.print("Въведете парола : ");
-        String password = scanner.next();
-        User newEmployee = new Employee(username,password);
-        FileHandler.writeUser(newEmployee);
-        adminMenu(scanner);
-    }
-    public static void registerNewAdmin(Scanner scanner){
-        System.out.println("------------------------------------");
-        System.out.print("Въведете потребителско име : ");
-        String username = scanner.next();
-        System.out.print("Въведете парола : ");
-        String password = scanner.next();
-        User newAdmin = new Admin(username,password);
-        FileHandler.writeUser(newAdmin);
-        adminMenu(scanner);
-    }
+
 }
