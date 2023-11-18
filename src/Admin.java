@@ -6,7 +6,7 @@ public class Admin extends User{
         super.setPassword(password);
         super.setRole(Role.admin);
     }
-    public static void registerNewAdmin(Scanner scanner) {
+    public static void addNewAdmin(Scanner scanner) {
         System.out.println("------------------------------------");
         System.out.print("Въведете потребителско име : ");
         String username = scanner.next();
@@ -14,6 +14,6 @@ public class Admin extends User{
         String password = scanner.next();
         User newAdmin = new Admin(username, password);
         FileHandler.writeUser(newAdmin);
-        Menu.adminMenu(scanner);
+        Menu.adminMenuUserManagement(scanner);
     }
 }

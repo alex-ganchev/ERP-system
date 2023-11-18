@@ -9,7 +9,7 @@ public class Employee extends User{
         super.setPassword(password);
         super.setRole(Role.employee);
     }
-    public static void registerNewEmployee(Scanner scanner) {
+    public static void addNewEmployee(Scanner scanner) {
         System.out.println("------------------------------------");
         System.out.print("Въведете потребителско име : ");
         String username = scanner.next();
@@ -17,6 +17,6 @@ public class Employee extends User{
         String password = scanner.next();
         User newEmployee = new Employee(username, password);
         FileHandler.writeUser(newEmployee);
-        Menu.adminMenu(scanner);
+        Menu.adminMenuUserManagement(scanner);
     }
 }
