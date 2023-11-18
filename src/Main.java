@@ -6,4 +6,5 @@ public class Main {
         User activeUser = Menu.loginMenu(scanner);
         Menu.defineMenu(scanner, activeUser);
     }
+
 }
