@@ -48,7 +48,7 @@ public abstract class FileHandler {
         }
         if (fileReader != null) {
             while (fileReader.hasNextLine()) {
-                String[] splitData = fileReader.nextLine().split(";");
+                String[] splitData = fileReader.nextLine().split(",");
                 clients.add(new Client(splitData[0], splitData[1], splitData[2]));
             }
             fileReader.close();
@@ -65,7 +65,7 @@ public abstract class FileHandler {
         }
         if (fileReader != null) {
             while (fileReader.hasNextLine()) {
-                String[] splitData = fileReader.nextLine().split(";");
+                String[] splitData = fileReader.nextLine().split(",");
                 if (splitData[2].equals("employee")) {
                     users.add(new Employee(splitData[0], splitData[1]));
                 } else if (splitData[2].equals("admin")) {

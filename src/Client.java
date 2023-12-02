@@ -36,7 +36,7 @@ public class Client {
         this.date = date;
     }
 
-    public static void addNewClient(Scanner scanner) {
+    /*public static void addNewClient(Scanner scanner) {
         scanner.nextLine();
         System.out.println("------------------------------------");
         System.out.print("Въведете име на клиента : ");
@@ -58,7 +58,7 @@ public class Client {
             System.out.println("    Проект : " + clients.get(i).getProject());
             System.out.println("    Дата   : " + clients.get(i).getDate());
         }
-    }
+    }*/
 
     @Override
     public String toString() {

@@ -15,7 +15,7 @@ public class Admin extends User {
         String password = scanner.next();
         User newAdmin = new Admin(username, password);
         FileHandler.writeUser(newAdmin);
-        Menu.adminMenuUserManagement(scanner);
+        Menu.adminMenu(scanner);
     }
 
     public static void addNewEmployee(Scanner scanner) {
@@ -26,6 +26,11 @@ public class Admin extends User {
         String password = scanner.next();
         User newEmployee = new Employee(username, password);
         FileHandler.writeUser(newEmployee);
-        Menu.adminMenuUserManagement(scanner);
+        Menu.adminMenu(scanner);
+    }
+
+    public static void addNewClient(Client client){
+        System.out.println("------------------------------------");
+        System.out.print("");
     }
 }

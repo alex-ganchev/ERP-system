@@ -33,7 +33,64 @@ public abstract class Menu {
         }
     }
 
-    public static void adminMenu(Scanner scanner) {
+    public static void adminMenu(Scanner scanner){
+        String input;
+        System.out.println("--------------- МЕНЮ ---------------");
+        System.out.println("     ПОТРЕБИТЕЛ: АДМИНИСТРАТОР");
+        System.out.println("------------------------------------");
+        System.out.println("1 - Добавяне на клиент");
+        System.out.println("2 - Регистреране на служител");
+        System.out.println("3 - Показване на статистика на служител");
+        System.out.println("4 - Регистриране на администратор");
+        System.out.println("0 - Изход");
+        System.out.println("------------------------------------");
+        System.out.print("Вашият избор : ");
+        input = scanner.next();
+        switch (input) {
+            case "1":
+                addClient(scanner);
+                break;
+            case "2":
+                registerEmployeeMenu(scanner);
+                break;
+            case "3":
+
+                break;
+            case "0":
+                System.out.println(exitMessage());
+                break;
+            default:
+                System.out.println("Въведена е невалидна стойност!");
+                adminMenu(scanner);
+        }
+    }
+
+    public static void registerEmployeeMenu(Scanner scanner){
+        System.out.println("------------------------------------");
+        System.out.print("Въведете потребителско име: ");
+        String username = scanner.next();
+        System.out.print("Въведете парола: ");
+        String password = scanner.next();
+        FileHandler.writeUser(new Employee(username, password));
+        adminMenu(scanner);
+    }
+
+    public static void addClient(Scanner scanner){
+        System.out.println("------------------------------------");
+        System.out.print("Въведете име на клиента: ");
+        String clientName = scanner.nextLine();
+        System.out.print("Въведете име на проекта: ");
+        String projectName = scanner.nextLine();
+        System.out.print("Въведете дата на проекта: ");
+        String projectDate = scanner.nextLine();
+        Client newClient = new Client(clientName, projectName, projectDate);
+        FileHandler.writeClient(newClient);
+        adminMenu(scanner);
+    }
+
+
+
+    /*public static void adminMenu(Scanner scanner) {
         String input;
         System.out.println("--------------- МЕНЮ ---------------");
         System.out.println("     ПОТРЕБИТЕЛ: АДМИНИСТРАТОР");
@@ -123,7 +180,7 @@ public abstract class Menu {
             }
         } while (!input.equals("0"));
         adminMenu(scanner);
-    }
+    }*/
 
     public static void employeeMenu(Scanner scanner) {
         String input;
@@ -145,7 +202,7 @@ public abstract class Menu {
 
                 break;
             case "0":
-                System.out.println("Избрахте изход!");
+                System.out.println(exitMessage());
                 break;
             default:
                 System.out.println("Въведена е невалидна стойност!");
@@ -153,4 +210,10 @@ public abstract class Menu {
         }
     }
 
+    public static String exitMessage(){
+        return "--------------- ИЗХОД --------------\n" +
+        "Андрей Димитров и Александър Ганчев\n"+
+        "    https://digitalrazgrad.org/\n" +
+        "------------------------------------";
+    }
 }
