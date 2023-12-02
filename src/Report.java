@@ -1,6 +1,6 @@
 public class Report {
     private String date;
-    private Project project;
+    private Client project;
     private  int time;
 
 }
