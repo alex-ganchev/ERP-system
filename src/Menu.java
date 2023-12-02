@@ -1,10 +1,11 @@
 import java.util.Scanner;
 
 public abstract class Menu {
+    public static User activeUser;
     public static User loginMenu(Scanner scanner) {
         String password;
         String username;
-        User activeUser;
+
         System.out.println("------------------------------------");
         System.out.println("    Enterprise Resource Planning    ");
         System.out.println("------------------------------------");
@@ -139,7 +140,7 @@ public abstract class Menu {
         input = scanner.next();
         switch (input) {
             case "1":
-
+                DailyReport.addNewReport(scanner);
                 break;
             case "2":
 

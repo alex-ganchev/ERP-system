@@ -10,6 +10,7 @@ public abstract class FileHandler {
     private static Scanner fileReader = null;
     private static final File FILE_USERS = new File("src/users.csv");
     private static final File FILE_CLIENTS = new File("src/clients.csv");
+    private static final File FILE_DAILY_REPORTS = new File("src/reports.csv");
 
     public static void writeUser(User user) {
         try {
@@ -34,6 +35,20 @@ public abstract class FileHandler {
         }
         if (printSteam != null) {
             printSteam.append(client.toString()).append("\n");
+            printSteam.close();
+            System.out.println("Успешен запис!");
+        }
+    }
+
+    public static void writeReport(DailyReport report) {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(FILE_DAILY_REPORTS, true);
+            printSteam = new PrintStream(fileOutputStream);
+        } catch (FileNotFoundException e) {
+            System.out.println("Файлът не е намерен!");
+        }
+        if (printSteam != null) {
+            printSteam.append(report.toString()).append("\n");
             printSteam.close();
             System.out.println("Успешен запис!");
         }
