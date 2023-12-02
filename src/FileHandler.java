@@ -81,10 +81,10 @@ public abstract class FileHandler {
         if (fileReader != null) {
             while (fileReader.hasNextLine()) {
                 String[] splitData = fileReader.nextLine().split(";");
-                if (splitData[2].equals("employee")) {
-                    users.add(new Employee(splitData[0], splitData[1]));
-                } else if (splitData[2].equals("admin")) {
-                    users.add(new Admin(splitData[0], splitData[1]));
+                if (splitData[3].equals("employee")) {
+                    users.add(new Employee(splitData[0], splitData[1], splitData[2]));
+                } else if (splitData[3].equals("admin")) {
+                    users.add(new Admin(splitData[0], splitData[1], splitData[2]));
                 }
             }
             fileReader.close();

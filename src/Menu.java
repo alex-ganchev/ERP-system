@@ -1,8 +1,7 @@
 import java.util.Scanner;
 
 public abstract class Menu {
-    public static User activeUser;
-    public static User loginMenu(Scanner scanner) {
+    public static void loginMenu(Scanner scanner) {
         String password;
         String username;
 
@@ -14,20 +13,18 @@ public abstract class Menu {
             username = scanner.next();
             System.out.print("Въведете парола : ");
             password = scanner.next();
-            activeUser = User.validate(username, password);
-            if (activeUser == null) {
+            if (!User.validate(username, password)) {
                 System.out.println("------------------------------------");
                 System.out.println("Грешно потребителско име или парола!");
                 System.out.println("------------------------------------");
             }
-        } while (activeUser == null);
-        return activeUser;
+        } while (User.activeUser == null);
     }
 
-    public static void defineMenu(Scanner scanner, User user) {
-        if (user.getRole().equals(Role.admin)) {
+    public static void defineMenu(Scanner scanner) {
+        if (User.activeUser.getRole().equals(Role.admin)) {
             adminMenu(scanner);
-        } else if (user.getRole().equals(Role.employee)) {
+        } else if (User.activeUser.getRole().equals(Role.employee)) {
             employeeMenu(scanner);
         } else {
             System.out.println("Нещо се обърка!");
@@ -37,7 +34,7 @@ public abstract class Menu {
     public static void adminMenu(Scanner scanner) {
         String input;
         System.out.println("--------------- МЕНЮ ---------------");
-        System.out.println("     ПОТРЕБИТЕЛ: АДМИНИСТРАТОР");
+        System.out.println("АДМИНИСТРАТОР : " + User.activeUser.getName());
         System.out.println("------------------------------------");
         System.out.println("1 - Управление на клиенти");
         System.out.println("2 - Управление на потребители");
@@ -130,7 +127,7 @@ public abstract class Menu {
         String input;
 
         System.out.println("--------------- МЕНЮ ---------------");
-        System.out.println("       ПОТРЕБИТЕЛ: СЛУЖИТЕЛ");
+        System.out.println("ПОТРЕБИТЕЛ : " + User.activeUser.getName());
         System.out.println("------------------------------------");
         System.out.println("1 - Попълване на дневен отчет");
         System.out.println("2 - Показване на статистика");
@@ -146,7 +143,10 @@ public abstract class Menu {
 
                 break;
             case "0":
-                System.out.println("Избрахте изход!");
+                System.out.println("--------------- ИЗХОД --------------");
+                System.out.println("Андрей Димитров и Александър Ганчев");
+                System.out.println("    https://digitalrazgrad.org/");
+                System.out.println("------------------------------------");
                 break;
             default:
                 System.out.println("Въведена е невалидна стойност!");

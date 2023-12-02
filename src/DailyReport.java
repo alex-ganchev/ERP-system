@@ -10,7 +10,7 @@ public class DailyReport {
         this.date = date;
         this.client = client;
         this.time = time;
-        this.employee = (Employee) Menu.activeUser;
+        this.employee = (Employee) User.activeUser;
     }
 
     public static void addNewReport(Scanner scanner) {
@@ -30,6 +30,6 @@ public class DailyReport {
 
     @Override
     public String toString() {
-        return date + ';' + employee.getUsername() + ';' + client + ';' + time;
+        return date + ';' + employee.getName() + ';' + client + ';' + time;
     }
 }

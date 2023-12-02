@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 
 public abstract class User {
+    public static User activeUser;
+    private String name;
     private String username;
     private String password;
     private Role role;
@@ -29,18 +31,27 @@ public abstract class User {
         this.role = role;
     }
 
-    public static User validate(String username, String password) {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public static boolean validate(String username, String password) {
         ArrayList<User> users = FileHandler.readUsers();
         for (int i = 0; i < users.size(); i++) {
             if (users.get(i).username.equals(username) && users.get(i).password.equals(password)) {
-                return users.get(i);
+                activeUser = users.get(i);
+                return true;
             }
         }
-        return null;
+        return false;
     }
 
     @Override
     public String toString() {
-        return username + ";" + password + ";" + role;
+        return name + ";" + username + ";" + password + ";" + role;
     }
 }
