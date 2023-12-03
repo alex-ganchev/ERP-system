@@ -10,6 +10,7 @@ public abstract class FileHandler {
     private static Scanner fileReader = null;
     private static final File FILE_USERS = new File("src/users.csv");
     private static final File FILE_CLIENTS = new File("src/clients.csv");
+    private static final File FILE_DAILY_REPORTS = new File("src/reports.csv");
 
     public static void writeUser(User user) {
         try {
@@ -39,6 +40,20 @@ public abstract class FileHandler {
         }
     }
 
+    public static void writeReport(DailyReport report) {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(FILE_DAILY_REPORTS, true);
+            printSteam = new PrintStream(fileOutputStream);
+        } catch (FileNotFoundException e) {
+            System.out.println("Файлът не е намерен!");
+        }
+        if (printSteam != null) {
+            printSteam.append(report.toString()).append("\n");
+            printSteam.close();
+            System.out.println("Успешен запис!");
+        }
+    }
+
     public static ArrayList<Client> readClients() {
         ArrayList<Client> clients = new ArrayList<>();
         try {
@@ -48,7 +63,7 @@ public abstract class FileHandler {
         }
         if (fileReader != null) {
             while (fileReader.hasNextLine()) {
-                String[] splitData = fileReader.nextLine().split(",");
+                String[] splitData = fileReader.nextLine().split(";");
                 clients.add(new Client(splitData[0], splitData[1], splitData[2]));
             }
             fileReader.close();
@@ -65,11 +80,11 @@ public abstract class FileHandler {
         }
         if (fileReader != null) {
             while (fileReader.hasNextLine()) {
-                String[] splitData = fileReader.nextLine().split(",");
-                if (splitData[2].equals("employee")) {
-                    users.add(new Employee(splitData[0], splitData[1]));
-                } else if (splitData[2].equals("admin")) {
-                    users.add(new Admin(splitData[0], splitData[1]));
+                String[] splitData = fileReader.nextLine().split(";");
+                if (splitData[3].equals("employee")) {
+                    users.add(new Employee(splitData[0], splitData[1], splitData[2]));
+                } else if (splitData[3].equals("admin")) {
+                    users.add(new Admin(splitData[0], splitData[1], splitData[2]));
                 }
             }
             fileReader.close();

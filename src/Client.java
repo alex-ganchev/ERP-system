@@ -36,7 +36,7 @@ public class Client {
         this.date = date;
     }
 
-    /*public static void addNewClient(Scanner scanner) {
+    public static void addNewClient(Scanner scanner) {
         scanner.nextLine();
         System.out.println("------------------------------------");
         System.out.print("Въведете име на клиента : ");
@@ -51,17 +51,33 @@ public class Client {
     }
 
     public static void printAllClients() {
-        ArrayList<Client> clients = FileHandler.readClients();
-        for (int i = 0; i < clients.size(); i++) {
+        ArrayList<Client> clientsList = FileHandler.readClients();
+        for (int i = 0; i < clientsList.size(); i++) {
             System.out.println("------------------------------------");
-            System.out.println(i + 1 + " - Клиент : " + clients.get(i).getName());
-            System.out.println("    Проект : " + clients.get(i).getProject());
-            System.out.println("    Дата   : " + clients.get(i).getDate());
+            System.out.println(i + 1 + " - Клиент : " + clientsList.get(i).getName());
+            System.out.println("    Проект : " + clientsList.get(i).getProject());
+            System.out.println("    Дата   : " + clientsList.get(i).getDate());
         }
-    }*/
-    
+    }
+    public static Client returnSelectedClient(Scanner scanner) {
+        ArrayList<Client> clientsList = FileHandler.readClients();
+        Client client = null;
+        do {
+            System.out.println("------------------------------------");
+            System.out.print("Изберете клиент : ");
+            String input = scanner.next();
+            try {
+                client = clientsList.get(Integer.parseInt(input) - 1);
+            } catch (Exception e) {
+                System.out.println("Въведена е невалидна стойност!");
+            }
+        }
+        while (client == null);
+        return client;
+    }
+
     @Override
     public String toString() {
-        return client + ";" + project + ";" + date + ";";
+        return client + ";" + project + ";" + date;
     }
 }

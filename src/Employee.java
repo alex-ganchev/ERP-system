@@ -9,6 +9,4 @@ public class Employee extends User {
         super.setPassword(password);
         super.setRole(Role.employee);
     }
-
-
 }
