@@ -39,7 +39,7 @@ public abstract class User {
         this.name = name;
     }
 
-    public static boolean validate(String username, String password) {
+    public static boolean validateLogin(String username, String password) {
         ArrayList<User> users = FileHandler.readUsers();
         for (int i = 0; i < users.size(); i++) {
             if (users.get(i).username.equals(username) && users.get(i).password.equals(password)) {
@@ -48,6 +48,15 @@ public abstract class User {
             }
         }
         return false;
+    }
+    public static boolean validateNewUser(String username, String name) {
+        ArrayList<User> users = FileHandler.readUsers();
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).username.equalsIgnoreCase(username) || users.get(i).name.equalsIgnoreCase(name)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

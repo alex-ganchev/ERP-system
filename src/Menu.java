@@ -13,7 +13,7 @@ public abstract class Menu {
             username = scanner.next();
             System.out.print("Въведете парола : ");
             password = scanner.next();
-            if (!User.validate(username, password)) {
+            if (!User.validateLogin(username, password)) {
                 System.out.println("------------------------------------");
                 System.out.println("Грешно потребителско име или парола!");
                 System.out.println("------------------------------------");
@@ -138,7 +138,7 @@ public abstract class Menu {
         input = scanner.next();
         switch (input) {
             case "1":
-                DailyReport.addNewReport(scanner);
+                Employee.addNewReport(scanner);
                 break;
             case "2":
 
