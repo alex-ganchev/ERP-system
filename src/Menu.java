@@ -19,9 +19,10 @@ public abstract class Menu {
                 System.out.println("------------------------------------");
             }
         } while (User.activeUser == null);
+        defineMenu(scanner);
     }
 
-    public static void defineMenu(Scanner scanner) {
+    private static void defineMenu(Scanner scanner) {
         if (User.activeUser.getRole().equals(Role.admin)) {
             adminMenu(scanner);
         } else if (User.activeUser.getRole().equals(Role.employee)) {
@@ -108,10 +109,10 @@ public abstract class Menu {
             input = scanner.next();
             switch (input) {
                 case "1":
-                    Admin.addNewEmployee(scanner);
+                    Admin.addNewUser(scanner,Role.employee);
                     break;
                 case "2":
-                    Admin.addNewAdmin(scanner);
+                    Admin.addNewUser(scanner,Role.admin);
                     break;
                 case "0":
                     System.out.println("Избрахте изход!");
