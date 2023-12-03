@@ -19,14 +19,14 @@ public class Employee extends User {
         scanner.nextLine();
         while (true) {
             if (date == null) {
-                while(true) {
+                while (true) {
                     System.out.print("Въведете дата : ");
                     date = scanner.nextLine();
                     try {
                         Date validateDate = DailyReport.dateFormat.parse(date);
                         if (date.equals(DailyReport.dateFormat.format(validateDate))) {
                             break;
-                        }else{
+                        } else {
                             throw new Exception();
                         }
                     } catch (Exception e) {
