@@ -13,15 +13,17 @@ public class Employee extends User {
         scanner.nextLine();
         System.out.println("------------------------------------");
         Client.printAllClients();
-        Client selectedClient = Client.returnSelectedClient(scanner);
+
+        String selectedClientName = Client.returnSelectedClient(scanner).getName();
+
         scanner.nextLine();
         System.out.print("Въведете дата : ");
         String date = scanner.nextLine();
         System.out.print("Въведете часове : ");
         double time = scanner.nextDouble();
-        DailyReport dailyReport = new DailyReport(date, selectedClient, time);
+        DailyReport dailyReport = new DailyReport(date, selectedClientName, activeUser.getName(), time);
         FileHandler.writeReport(dailyReport);
         Menu.employeeMenu(scanner);
     }
-
 }
+

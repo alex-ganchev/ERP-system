@@ -2,19 +2,18 @@ import java.util.Scanner;
 
 public class DailyReport {
     private String date;
-    private Employee employee;
-    private Client client;
+    private String employee;
+    private String client;
     private double time;
 
-    public DailyReport(String date, Client client, double time) {
+    public DailyReport(String date, String client, String employee, double time) {
         this.date = date;
         this.client = client;
         this.time = time;
-        this.employee = (Employee) User.activeUser;
+        this.employee = employee;
     }
-
     @Override
     public String toString() {
-        return date + ';' + employee.getName() + ';' + client + ';' + time;
+        return date + ';' + client + ';' + employee + ';' + time;
     }
 }
