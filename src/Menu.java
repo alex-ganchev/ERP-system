@@ -110,10 +110,10 @@ public abstract class Menu {
             input = scanner.next();
             switch (input) {
                 case "1":
-                    Admin.addNewUser(scanner,Role.employee);
+                    Admin.addNewUser(scanner, Role.employee);
                     break;
                 case "2":
-                    Admin.addNewUser(scanner,Role.admin);
+                    Admin.addNewUser(scanner, Role.admin);
                     break;
 //                case "3":
 //                    ArrayList<DailyReport> reports = FileHandler.readReports();
@@ -144,7 +144,7 @@ public abstract class Menu {
         input = scanner.next();
         switch (input) {
             case "1":
-                Employee.addNewReport(scanner);
+                employeeMenuDailyReport(scanner);
                 break;
             case "2":
 
@@ -158,6 +158,32 @@ public abstract class Menu {
             default:
                 System.out.println("Въведена е невалидна стойност!");
                 employeeMenu(scanner);
+        }
+    }
+
+    public static void employeeMenuDailyReport(Scanner scanner) {
+        String input;
+        String date = DailyReport.toDay;
+        System.out.println("----------- ДНЕВЕН ОТЧЕТ -----------");
+        System.out.println("1 - Дневен отчет за : " + date);
+        System.out.println("2 - Дневен отчет за отминал период");
+        System.out.println("0 - Изход");
+        System.out.println("------------------------------------");
+        System.out.print("Вашият избор : ");
+        input = scanner.next();
+        switch (input) {
+            case "1":
+                Employee.addNewReport(scanner, date);
+                break;
+            case "2":
+                Employee.addNewReport(scanner, null);
+                break;
+            case "0":
+                employeeMenu(scanner);
+                break;
+            default:
+                System.out.println("Въведена е невалидна стойност!");
+                employeeMenuDailyReport(scanner);
         }
     }
 
