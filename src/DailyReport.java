@@ -2,34 +2,34 @@ import java.util.Scanner;
 
 public class DailyReport {
     private String date;
-    private Employee employee;
-    private Client client;
+    private String employee;
+    private String client;
     private double time;
 
-    public DailyReport(String date, Client client, double time) {
+    public DailyReport(String date, String client, String employee, double time) {
         this.date = date;
         this.client = client;
         this.time = time;
-        this.employee = (Employee) User.activeUser;
+        this.employee = employee;
     }
 
-    public static void addNewReport(Scanner scanner) {
-        scanner.nextLine();
-        System.out.println("------------------------------------");
-        Client.printAllClients();
-        Client selectedClient = Client.returnSelectedClient(scanner);
-        scanner.nextLine();
-        System.out.print("Въведете дата : ");
-        String date = scanner.nextLine();
-        System.out.print("Въведете часове : ");
-        double time = scanner.nextDouble();
-        DailyReport dailyReport = new DailyReport(date, selectedClient, time);
-        FileHandler.writeReport(dailyReport);
-        Menu.employeeMenu(scanner);
-    }
+//    public static void addNewReport(Scanner scanner) {
+//        scanner.nextLine();
+//        System.out.println("------------------------------------");
+//        Client.printAllClients();
+//        Client selectedClient = Client.returnSelectedClient(scanner);
+//        scanner.nextLine();
+//        System.out.print("Въведете дата : ");
+//        String date = scanner.nextLine();
+//        System.out.print("Въведете часове : ");
+//        double time = scanner.nextDouble();
+//        DailyReport dailyReport = new DailyReport(date, selectedClient, time);
+//        FileHandler.writeReport(dailyReport);
+//        Menu.employeeMenu(scanner);
+//    }
 
     @Override
     public String toString() {
-        return date + ';' + employee.getName() + ';' + client + ';' + time;
+        return date + ';' + client + ';' + employee + ';' + time;
     }
 }
