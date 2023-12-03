@@ -59,7 +59,7 @@ public class Client {
             System.out.println("    Дата   : " + clients.get(i).getDate());
         }
     }*/
-
+    
     @Override
     public String toString() {
         return client + ";" + project + ";" + date + ";";
