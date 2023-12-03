@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public abstract class Menu {
@@ -52,7 +53,7 @@ public abstract class Menu {
                 adminMenuUserManagement(scanner);
                 break;
             case "3":
-
+                FileHandler.readReports();
                 break;
             case "0":
                 System.out.println("--------------- ИЗХОД --------------");
@@ -80,7 +81,7 @@ public abstract class Menu {
             input = scanner.next();
             switch (input) {
                 case "1":
-                    Client.addNewClient(scanner);
+                    Admin.addNewClient(scanner);
                     break;
                 case "2":
                     Client.printAllClients();
@@ -114,6 +115,11 @@ public abstract class Menu {
                 case "2":
                     Admin.addNewUser(scanner,Role.admin);
                     break;
+                case "3":
+                    ArrayList<DailyReport> reports = FileHandler.readReports();
+                    for (DailyReport report:reports) {
+                        System.out.println(report);
+                    }
                 case "0":
                     System.out.println("Избрахте изход!");
                     break;
@@ -138,7 +144,7 @@ public abstract class Menu {
         input = scanner.next();
         switch (input) {
             case "1":
-                DailyReport.addNewReport(scanner);
+                Employee.addNewReport(scanner);
                 break;
             case "2":
 

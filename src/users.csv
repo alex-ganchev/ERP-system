@@ -1,7 +1,6 @@
-admin;1234;admin
-user;1234;employee
-admin1;1234;admin
-username;password;employee;
-username;password;employee;
-TestName;TestRole;employee;
-TestName;TestRole;employee;
+Александър Ганчев;admin;1;admin
+Андрей Димитров;admin;1234;admin
+Иван Иванов;user1;1234;employee
+Петър Петров;user2;1234;employee
+Надежда Петрова;nadq;1234;employee
+Калоян Захариев;kaloqn;1234;employee

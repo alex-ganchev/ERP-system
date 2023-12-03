@@ -91,4 +91,20 @@ public abstract class FileHandler {
         }
         return users;
     }
+
+    public static ArrayList<DailyReport> readReports() {
+        ArrayList<DailyReport> reports = new ArrayList<>();
+        try{
+            fileReader = new Scanner(FILE_DAILY_REPORTS);
+        } catch (FileNotFoundException e) {
+            System.out.println("Файлът не е намерен!");
+        }
+        if(fileReader != null){
+            while (fileReader.hasNextLine()){
+                String[] splitData = fileReader.nextLine().split(";");
+                reports.add(new DailyReport(splitData[0], splitData[2], splitData[2], Double.valueOf(splitData[3])));
+            }
+        }
+        return reports;
+    }
 }

@@ -27,5 +27,19 @@ public class Admin extends User {
         Menu.adminMenuUserManagement(scanner);
     }
 
+    public static void addNewClient(Scanner scanner) {
+        scanner.nextLine();
+        System.out.println("------------------------------------");
+        System.out.print("Въведете име на клиента : ");
+        String clientName = scanner.nextLine();
+        System.out.print("Въведете име на проекта : ");
+        String projectName = scanner.nextLine();
+        System.out.print("Въведете дата на проекта : ");
+        String projectDate = scanner.nextLine();
+        Client newClient = new Client(clientName, projectName, projectDate);
+        FileHandler.writeClient(newClient);
+        Menu.adminMenuClientManagement(scanner);
+    }
+
 
 }
