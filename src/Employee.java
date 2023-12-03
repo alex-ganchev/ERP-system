@@ -9,19 +9,37 @@ public class Employee extends User {
         super.setPassword(password);
         super.setRole(Role.employee);
     }
+
     public static void addNewReport(Scanner scanner) {
+        String date;
+        double time;
         scanner.nextLine();
-        System.out.println("------------------------------------");
         Client.printAllClients();
-
-        String selectedClientName = Client.returnSelectedClient(scanner).getName();
-
+        Client selectedClient = Client.returnSelectedClient(scanner);
         scanner.nextLine();
-        System.out.print("Въведете дата : ");
-        String date = scanner.nextLine();
-        System.out.print("Въведете часове : ");
-        double time = scanner.nextDouble();
-        DailyReport dailyReport = new DailyReport(date, selectedClientName, activeUser.getName(), time);
+        while (true) {
+            System.out.print("Въведете дата : ");
+            date = scanner.nextLine();
+            break;
+        }
+        while (true) {
+            time = 0;
+            System.out.print("Въведете часове : ");
+            try {
+                String input = scanner.next();
+                time = Double.parseDouble(input);
+            } catch (Exception e) {
+                System.out.println("Въведен е невалиден формат за час!");
+            }
+            if (time > 8) {
+                System.out.println("Въведени са повече от 8 часа!");
+            } else if (time < 0) {
+                System.out.println("Въведени са отрицателни часове!");
+            } else if (time > 0) {
+                break;
+            }
+        }
+        DailyReport dailyReport = new DailyReport(date, selectedClient.getName(),selectedClient.getProject(), activeUser.getName(), time);
         FileHandler.writeReport(dailyReport);
         Menu.employeeMenu(scanner);
     }

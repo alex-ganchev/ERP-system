@@ -115,11 +115,11 @@ public abstract class Menu {
                 case "2":
                     Admin.addNewUser(scanner,Role.admin);
                     break;
-                case "3":
-                    ArrayList<DailyReport> reports = FileHandler.readReports();
-                    for (DailyReport report:reports) {
-                        System.out.println(report);
-                    }
+//                case "3":
+//                    ArrayList<DailyReport> reports = FileHandler.readReports();
+//                    for (DailyReport report:reports) {
+//                        System.out.println(report);
+//                    }
                 case "0":
                     System.out.println("Избрахте изход!");
                     break;
