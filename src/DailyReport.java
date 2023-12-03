@@ -12,22 +12,6 @@ public class DailyReport {
         this.time = time;
         this.employee = employee;
     }
-
-//    public static void addNewReport(Scanner scanner) {
-//        scanner.nextLine();
-//        System.out.println("------------------------------------");
-//        Client.printAllClients();
-//        Client selectedClient = Client.returnSelectedClient(scanner);
-//        scanner.nextLine();
-//        System.out.print("Въведете дата : ");
-//        String date = scanner.nextLine();
-//        System.out.print("Въведете часове : ");
-//        double time = scanner.nextDouble();
-//        DailyReport dailyReport = new DailyReport(date, selectedClient, time);
-//        FileHandler.writeReport(dailyReport);
-//        Menu.employeeMenu(scanner);
-//    }
-
     @Override
     public String toString() {
         return date + ';' + client + ';' + employee + ';' + time;

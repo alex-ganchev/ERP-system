@@ -17,12 +17,16 @@ public class Admin extends User {
         String username = scanner.nextLine();
         System.out.print("Въведете парола : ");
         String password = scanner.nextLine();
-        if(role.equals(Role.admin)){
-            FileHandler.writeUser(new Admin(name, username, password));
-        }else if(role.equals(Role.employee)){
-            FileHandler.writeUser(new Employee(name, username, password));
+        if(User.validateNewUser(username,name)){
+            if(role.equals(Role.admin)){
+                FileHandler.writeUser(new Admin(name, username, password));
+            }else if(role.equals(Role.employee)){
+                FileHandler.writeUser(new Employee(name, username, password));
+            }else{
+                System.out.println("Нещо се обърка!");
+            }
         }else{
-            System.out.println("Нещо се обърка!");
+            System.out.println("Потребителя вече съществува в базата!");
         }
         Menu.adminMenuUserManagement(scanner);
     }

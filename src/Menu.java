@@ -14,7 +14,7 @@ public abstract class Menu {
             username = scanner.next();
             System.out.print("Въведете парола : ");
             password = scanner.next();
-            if (!User.validate(username, password)) {
+            if (!User.validateLogin(username, password)) {
                 System.out.println("------------------------------------");
                 System.out.println("Грешно потребителско име или парола!");
                 System.out.println("------------------------------------");
