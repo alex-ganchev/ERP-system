@@ -102,7 +102,7 @@ public abstract class FileHandler {
         if(fileReader != null){
             while (fileReader.hasNextLine()){
                 String[] splitData = fileReader.nextLine().split(";");
-                reports.add(new DailyReport(splitData[0], splitData[2], splitData[2], Double.valueOf(splitData[3])));
+                reports.add(new DailyReport(splitData[0], splitData[1], splitData[2], splitData[3], Double.valueOf(splitData[4])));
             }
         }
         return reports;
