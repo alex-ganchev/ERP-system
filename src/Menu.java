@@ -53,7 +53,7 @@ public abstract class Menu {
                 adminMenuUserManagement(scanner);
                 break;
             case "3":
-                FileHandler.readReports();
+                adminMenuStatisticManagement(scanner);
                 break;
             case "0":
                 System.out.println("--------------- ИЗХОД --------------");
@@ -115,11 +115,35 @@ public abstract class Menu {
                 case "2":
                     Admin.addNewUser(scanner, Role.admin);
                     break;
-//                case "3":
-//                    ArrayList<DailyReport> reports = FileHandler.readReports();
-//                    for (DailyReport report:reports) {
-//                        System.out.println(report);
-//                    }
+                case "0":
+                    System.out.println("Избрахте изход!");
+                    break;
+                default:
+                    System.out.println("Въведена е невалидна стойност!");
+            }
+        } while (!input.equals("0"));
+        adminMenu(scanner);
+    }
+
+    public static void adminMenuStatisticManagement(Scanner scanner){
+        String input;
+        do {
+            System.out.println("------------------------------------");
+            System.out.println("       СТАТИСТИКА ЗА СЛУЖИТЕЛИ      ");
+            System.out.println("------------------------------------");
+            System.out.println("1 - Търсене по име на служител");
+            System.out.println("2 - Търсене по номер на седмица");
+            System.out.println("0 - Изход");
+            System.out.println("------------------------------------");
+            System.out.print("Вашият избор : ");
+            input = scanner.next();
+            switch (input) {
+                case "1":
+                    Admin.readReportsByEmployeeName(scanner);
+                    break;
+                case "2":
+
+                    break;
                 case "0":
                     System.out.println("Избрахте изход!");
                     break;
