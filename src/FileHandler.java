@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public abstract class FileHandler {
@@ -92,8 +93,8 @@ public abstract class FileHandler {
         return users;
     }
 
-    public static ArrayList<DailyReport> readReports() {
-        ArrayList<DailyReport> reports = new ArrayList<>();
+    public static List<DailyReport> readReports() {
+        List<DailyReport> reports = new ArrayList<>();
         try{
             fileReader = new Scanner(FILE_DAILY_REPORTS);
         } catch (FileNotFoundException e) {

@@ -1,4 +1,7 @@
+import java.lang.reflect.Array;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Admin extends User {
     public Admin( String name, String username, String password) {
@@ -45,5 +48,16 @@ public class Admin extends User {
         Menu.adminMenuClientManagement(scanner);
     }
 
-
+    public static void readReportsByEmployeeName(Scanner scanner) {
+        scanner.nextLine();
+        System.out.println("------------------------------------");
+        System.out.print("Въведете име на служителя : ");
+        String employeeName = scanner.nextLine();
+        System.out.println("------------------------------------");
+        List<DailyReport> reports = FileHandler.readReports();
+        List<DailyReport> reportsByEmployee = reports.stream().filter(dailyReport -> dailyReport.getEmployee().equals(employeeName)).collect(Collectors.toList());
+        for(DailyReport report:reportsByEmployee){
+            System.out.println("Дата: " + report.getDate() + "\nКлиент: " + report.getClient() + "\nПроект: " + report.getProject() + "\nСлужител: " + report.getEmployee() + "\nВреме: " + report.getTime() + "\n");
+        }
+    }
 }

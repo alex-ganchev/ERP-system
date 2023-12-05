@@ -17,6 +17,26 @@ public class DailyReport {
         this.time = time;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public String getClient() {
+        return client;
+    }
+
+    public String getProject() {
+        return project;
+    }
+
+    public String getEmployee() {
+        return employee;
+    }
+
+    public double getTime() {
+        return time;
+    }
+
     @Override
     public String toString() {
         return date + ';' + client + ';' + project + ';' + employee + ';' + time;
