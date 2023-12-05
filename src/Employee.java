@@ -17,9 +17,6 @@ public class Employee extends User {
         double time;
         String input;
         scanner.nextLine();
-        Client.printAllClients();
-        Client selectedClient = Client.returnSelectedClient(scanner);
-        scanner.nextLine();
         if (date == null) {
             do {
                 System.out.print("Въведете дата : ");
@@ -29,6 +26,9 @@ public class Employee extends User {
         if (Validation.returnAllHoursReportedByDate(date) == 8) {
             System.out.println("За " + date + " вече имате отчетени 8 часа.");
         } else {
+            Client.printAllClients();
+            Client selectedClient = Client.returnSelectedClient(scanner);
+            scanner.nextLine();
             do {
                 System.out.print("Въведете часове : ");
                 input = scanner.next();
@@ -43,19 +43,26 @@ public class Employee extends User {
     public static void report(Scanner scanner) {
         //TODO Да се оправи визуализацията.
         System.out.println("------------------------------------");
-        System.out.println("Дата\t\t\tОбщо часове\t\t\tЧасове по проекти");
+        System.out.println("Дата\t\tОбщо часове\t\tЧасове по проекти");
         List<DailyReport> reports = FileHandler.readReports();
 
         List<DailyReport> reportsByEmployee = reports.stream()
                 .filter(dailyReport -> dailyReport.getEmployee().equals(activeUser.getName()))
-                //.sorted(Comparator.comparing(DailyReport::getTime))
+                .sorted(Comparator.comparing(DailyReport::getDate))
                 .toList();
 
         Map<String, List<DailyReport>> groupedDailyReports = reportsByEmployee.stream()
-                .sorted(Comparator.comparing(DailyReport::getTime))
+                .sorted(Comparator.comparing(DailyReport::getDate))
                 .collect(Collectors.groupingBy(DailyReport::getDate));
-        groupedDailyReports.forEach((k, v) -> System.out.println(k + "\n" + v));
 
+        for (Map.Entry<String, List<DailyReport>> entry : groupedDailyReports.entrySet()) {
+            String key = entry.getKey();
+            List<DailyReport> value = entry.getValue();
+            System.out.print(key + "\t\t" + Validation.returnAllHoursReportedByDate(key));
+            for (int i = 0; i < value.size(); i++) {
+                System.out.println("\t\t\t" + value.get(i).getTime() + " <- " /* +value.get(i).getClient() + " | " */ + value.get(i).getProject());
+            }
+        }
         Menu.employeeMenu(scanner);
     }
 }
