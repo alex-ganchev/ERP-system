@@ -1,4 +1,6 @@
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -38,17 +40,23 @@ public class Employee extends User {
         Menu.employeeMenu(scanner);
     }
 
-    public static void report() {
-        double allTime = 0;
+    public static void report(Scanner scanner) {
+        //TODO Да се оправи визуализацията.
+        System.out.println("------------------------------------");
+        System.out.println("Дата\t\t\tОбщо часове\t\t\tЧасове по проекти");
         List<DailyReport> reports = FileHandler.readReports();
+
         List<DailyReport> reportsByEmployee = reports.stream()
                 .filter(dailyReport -> dailyReport.getEmployee().equals(activeUser.getName()))
-                .filter(dailyReport -> dailyReport.getDate().equals("03/12/2023"))
+                //.sorted(Comparator.comparing(DailyReport::getTime))
                 .toList();
-        for (DailyReport report : reportsByEmployee) {
-            //System.out.println("Дата: " + report.getDate() + "\nКлиент: " + report.getClient() + "\nПроект: " + report.getProject() + "\nСлужител: " + report.getEmployee() + "\nВреме: " + report.getTime() + "\n");
 
-        }
+        Map<String, List<DailyReport>> groupedDailyReports = reportsByEmployee.stream()
+                .sorted(Comparator.comparing(DailyReport::getTime))
+                .collect(Collectors.groupingBy(DailyReport::getDate));
+        groupedDailyReports.forEach((k, v) -> System.out.println(k + "\n" + v));
+
+        Menu.employeeMenu(scanner);
     }
 }
 

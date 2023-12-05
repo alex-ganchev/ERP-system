@@ -18,7 +18,6 @@ public abstract class Validation {
             return true;
         } else if (allHours >= 8){
             System.out.println("За " + date + " вече имате отчетени " + allHours + " часа.");
-            return false;
         }
         return false;
     }
@@ -49,6 +48,6 @@ public abstract class Validation {
         }
         return false;
     }
-    //Да се добави валидация за въвеждане на дата по-голяма от toDay.
+    //TODO Да се добави валидация за въвеждане на дата по-голяма от toDay и по-малка от седмица назад.
 
 }
