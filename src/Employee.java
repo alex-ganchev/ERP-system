@@ -1,6 +1,8 @@
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Employee extends User {
 
@@ -13,45 +15,47 @@ public class Employee extends User {
 
     public static void addNewReport(Scanner scanner, String date) {
         double time;
+        String input;
         scanner.nextLine();
         Client.printAllClients();
         Client selectedClient = Client.returnSelectedClient(scanner);
         scanner.nextLine();
         if (date == null) {
-            while (true) {
+            do {
                 System.out.print("Въведете дата : ");
                 date = scanner.nextLine();
-                try {
-                    Date validateDate = DailyReport.dateFormat.parse(date);
-                    if (date.equals(DailyReport.dateFormat.format(validateDate))) {
-                        break;
-                    } else {
-                        throw new Exception();
-                    }
-                } catch (Exception e) {
-                    System.out.println("Въведете дата във формат дд/мм/гггг");
-                }
-            }
+            } while (!Validation.dateFormateValidate(date));
         }
-        while (true) {
-            time = 0;
-            System.out.print("Въведете часове : ");
-            try {
-                String input = scanner.next();
-                time = Double.parseDouble(input);
-            } catch (Exception e) {
-                System.out.println("Въведен е невалиден формат за час!");
-            }
-            if (time > 8) {
-                System.out.println("Въведени са повече от 8 часа!");
-            } else if (time < 0) {
-                System.out.println("Въведени са отрицателни часове!");
-            } else if (time > 0) {
-                break;
-            }
+        if (Validation.returnAllHoursReportedByDate(date) == 8) {
+            System.out.println("За " + date + " вече имате отчетени 8 часа.");
+        } else {
+            do {
+                System.out.print("Въведете часове : ");
+                input = scanner.next();
+            } while (!Validation.timeValidate(input, date));
+            time = Double.parseDouble(input);
+            DailyReport dailyReport = new DailyReport(date, selectedClient.getName(), selectedClient.getProject(), activeUser.getName(), time);
+            FileHandler.writeReport(dailyReport);
         }
-        DailyReport dailyReport = new DailyReport(date, selectedClient.getName(), selectedClient.getProject(), activeUser.getName(), time);
-        FileHandler.writeReport(dailyReport);
+        Menu.employeeMenu(scanner);
+    }
+
+    public static void report(Scanner scanner) {
+        //TODO Да се оправи визуализацията.
+        System.out.println("------------------------------------");
+        System.out.println("Дата\t\t\tОбщо часове\t\t\tЧасове по проекти");
+        List<DailyReport> reports = FileHandler.readReports();
+
+        List<DailyReport> reportsByEmployee = reports.stream()
+                .filter(dailyReport -> dailyReport.getEmployee().equals(activeUser.getName()))
+                //.sorted(Comparator.comparing(DailyReport::getTime))
+                .toList();
+
+        Map<String, List<DailyReport>> groupedDailyReports = reportsByEmployee.stream()
+                .sorted(Comparator.comparing(DailyReport::getTime))
+                .collect(Collectors.groupingBy(DailyReport::getDate));
+        groupedDailyReports.forEach((k, v) -> System.out.println(k + "\n" + v));
+
         Menu.employeeMenu(scanner);
     }
 }
