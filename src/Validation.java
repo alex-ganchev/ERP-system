@@ -16,7 +16,7 @@ public abstract class Validation {
             System.out.println("Въведени са отрицателни часове!");
         } else if (time > 0 && ((allHours + time) <= 8)) {
             return true;
-        } else if (allHours >= 8){
+        } else if (allHours + time > 8){
             System.out.println("За " + date + " вече имате отчетени " + allHours + " часа.");
         }
         return false;
