@@ -171,7 +171,7 @@ public abstract class Menu {
                 employeeMenuDailyReport(scanner);
                 break;
             case "2":
-
+                Employee.report();
                 break;
             case "0":
                 System.out.println("--------------- ИЗХОД --------------");
