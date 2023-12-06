@@ -142,7 +142,7 @@ public abstract class Menu {
                     Admin.readReportsByEmployeeName(scanner);
                     break;
                 case "2":
-
+                    Admin.readReportsByNumberOfWeek(scanner);
                     break;
                 case "0":
                     System.out.println("Избрахте изход!");
