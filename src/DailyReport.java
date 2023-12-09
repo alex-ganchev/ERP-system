@@ -3,10 +3,10 @@ import java.time.LocalDate;
 public class DailyReport {
     private LocalDate date;
     private Client client;
-    private String employee;
+    private User employee;
     private double time;
 
-    public DailyReport(LocalDate date, Client client, String employee, double time) {
+    public DailyReport(LocalDate date, Client client, User employee, double time) {
         this.date = date;
         this.client = client;
         this.employee = employee;
@@ -16,11 +16,12 @@ public class DailyReport {
     public LocalDate getDate() {
         return date;
     }
+
     public Client getClient() {
         return client;
     }
 
-    public String getEmployee() {
+    public User getEmployee() {
         return employee;
     }
 
@@ -30,6 +31,6 @@ public class DailyReport {
 
     @Override
     public String toString() {
-        return date.format(AppConstants.DATE_FORMAT) + ';' + client.getName() + ';' + client.getProject() + ';' + employee + ';' + time;
+        return date.format(AppConstants.DATE_FORMAT) + ';' + client.getName() + ';' + client.getProject() + ';' + employee.getName() + ';' + time;
     }
 }

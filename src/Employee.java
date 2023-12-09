@@ -11,6 +11,10 @@ public class Employee extends User {
         super.setRole(Role.employee);
     }
 
+    public Employee(String name) {
+        super.setName(name);
+    }
+
     public static void addDailyReport(Scanner scanner, LocalDate date) {
         double time;
         String input;
@@ -34,7 +38,7 @@ public class Employee extends User {
                 input = scanner.next();
             } while (!Validation.timeValidate(input, date));
             time = Double.parseDouble(input);
-            DailyReport dailyReport = new DailyReport(date, selectedClient, activeUser.getName(), time);
+            DailyReport dailyReport = new DailyReport(date, selectedClient, activeUser, time);
             FileHandler.writeReport(dailyReport);
         }
     }
@@ -43,7 +47,7 @@ public class Employee extends User {
         List<DailyReport> reports = FileHandler.readReports();
 
         List<DailyReport> reportsByEmployee = reports.stream()
-                .filter(dailyReport -> dailyReport.getEmployee().equals(activeUser.getName()))
+                .filter(dailyReport -> dailyReport.getEmployee().getName().equals(activeUser.getName()))
                 .toList();
 
         Map<LocalDate, List<DailyReport>> groupedDailyReports = reportsByEmployee.stream()

@@ -1,4 +1,3 @@
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
@@ -93,15 +92,15 @@ public class FileHandler {
 
     public static List<DailyReport> readReports() {
         List<DailyReport> reports = new ArrayList<>();
-        try{
+        try {
             fileReader = new Scanner(AppConstants.FILE_DAILY_REPORTS);
         } catch (FileNotFoundException e) {
             System.out.println("Файлът не е намерен!");
         }
-        if(fileReader != null){
-            while (fileReader.hasNextLine()){
+        if (fileReader != null) {
+            while (fileReader.hasNextLine()) {
                 String[] splitData = fileReader.nextLine().split(";");
-                reports.add(new DailyReport(LocalDate.parse(splitData[0], AppConstants.DATE_FORMAT), new Client(splitData[1], splitData[2]), splitData[3], Double.valueOf(splitData[4])));
+                reports.add(new DailyReport(LocalDate.parse(splitData[0], AppConstants.DATE_FORMAT), new Client(splitData[1], splitData[2]), new Employee(splitData[3]), Double.valueOf(splitData[4])));
             }
         }
         return reports;

@@ -24,6 +24,7 @@ public class Client {
         this.project = project;
         this.date = date;
     }
+
     public Client(String client, String project) {
         this.name = client;
         this.project = project;

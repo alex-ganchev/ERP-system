@@ -57,14 +57,14 @@ public class Admin extends User {
         String employeeName = scanner.nextLine();
         System.out.println("------------------------------------");
         List<DailyReport> reports = FileHandler.readReports();
-        List<DailyReport> reportsByEmployee = reports.stream().filter(dailyReport -> dailyReport.getEmployee().equals(employeeName)).collect(Collectors.toList());
+        List<DailyReport> reportsByEmployee = reports.stream().filter(dailyReport -> dailyReport.getEmployee().getName().equals(employeeName)).collect(Collectors.toList());
         if (reportsByEmployee.size() == 0) {
             System.out.println("Няма намерени резултати!");
         } else {
             System.out.println("             РЕЗУЛТАТИ");
             System.out.println("------------------------------------");
             for (DailyReport report : reportsByEmployee) {
-                System.out.println("Дата : " + report.getDate() + "\nКлиент : " + report.getClient().getName() + "\nПроект : " + report.getClient().getProject() + "\nСлужител : " + report.getEmployee() + "\nВреме : " + report.getTime() + "\n");
+                System.out.println("Дата : " + report.getDate() + "\nКлиент : " + report.getClient().getName() + "\nПроект : " + report.getClient().getProject() + "\nСлужител : " + report.getEmployee().getName() + "\nВреме : " + report.getTime() + "\n");
             }
         }
     }
@@ -83,7 +83,7 @@ public class Admin extends User {
             System.out.println("             РЕЗУЛТАТИ");
             System.out.println("------------------------------------");
             for (DailyReport report : reportsByNumOfWeek) {
-                System.out.println("Дата : " + report.getDate() + "\nКлиент : " + report.getClient().getName() + "\nПроект : " + report.getClient().getProject() + "\nСлужител : " + report.getEmployee() + "\nВреме : " + report.getTime() + "\n");
+                System.out.println("Дата : " + report.getDate() + "\nКлиент : " + report.getClient().getName() + "\nПроект : " + report.getClient().getProject() + "\nСлужител : " + report.getEmployee().getName() + "\nВреме : " + report.getTime() + "\n");
             }
         }
     }

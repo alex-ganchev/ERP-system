@@ -26,7 +26,7 @@ public class Validation {
         double allHours = 0;
         List<DailyReport> reports = FileHandler.readReports();
         List<DailyReport> reportsByEmployee = reports.stream()
-                .filter(dailyReport -> dailyReport.getEmployee().equals(User.activeUser.getName()))
+                .filter(dailyReport -> dailyReport.getEmployee().getName().equals(User.activeUser.getName()))
                 .filter(dailyReport -> dailyReport.getDate().equals(date))
                 .toList();
         for (DailyReport report : reportsByEmployee) {
