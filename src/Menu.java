@@ -82,6 +82,7 @@ public abstract class Menu {
             switch (input) {
                 case "1":
                     Admin.addNewClient(scanner);
+                    //adminMenuClientManagement(scanner);
                     break;
                 case "2":
                     Client.printAllClients();
@@ -111,9 +112,11 @@ public abstract class Menu {
             switch (input) {
                 case "1":
                     Admin.addNewUser(scanner, Role.employee);
+                    //adminMenuUserManagement(scanner);
                     break;
                 case "2":
                     Admin.addNewUser(scanner, Role.admin);
+                    //adminMenuUserManagement(scanner);
                     break;
                 case "0":
                     System.out.println("Избрахте изход!");
@@ -140,9 +143,11 @@ public abstract class Menu {
             switch (input) {
                 case "1":
                     Admin.readReportsByEmployeeName(scanner);
+                    //adminMenuStatisticManagement(scanner);
                     break;
                 case "2":
                     Admin.readReportsByNumberOfWeek(scanner);
+                    //adminMenuStatisticManagement(scanner);
                     break;
                 case "0":
                     System.out.println("Избрахте изход!");
@@ -198,9 +203,11 @@ public abstract class Menu {
         switch (input) {
             case "1":
                 Employee.addNewReport(scanner, date);
+                //employeeMenu(scanner);
                 break;
             case "2":
                 Employee.addNewReport(scanner, null);
+                //employeeMenu(scanner);
                 break;
             case "0":
                 employeeMenu(scanner);

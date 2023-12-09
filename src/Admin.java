@@ -30,7 +30,6 @@ public class Admin extends User {
         } else {
             System.out.println("Потребителя вече съществува в базата!");
         }
-        Menu.adminMenuUserManagement(scanner);
     }
 
     public static void addNewClient(Scanner scanner) {
@@ -47,7 +46,6 @@ public class Admin extends User {
         } while (!Validation.dateFormateValidate(projectDate));
         Client newClient = new Client(clientName, projectName, projectDate);
         FileHandler.writeClient(newClient);
-        Menu.adminMenuClientManagement(scanner);
     }
 
     public static void readReportsByEmployeeName(Scanner scanner) {
@@ -67,7 +65,6 @@ public class Admin extends User {
                 System.out.println("Дата : " + report.getDate() + "\nКлиент : " + report.getClient() + "\nПроект : " + report.getProject() + "\nСлужител : " + report.getEmployee() + "\nВреме : " + report.getTime() + "\n");
             }
         }
-        Menu.adminMenuStatisticManagement(scanner);
     }
 
     public static void readReportsByNumberOfWeek(Scanner scanner) {
@@ -87,7 +84,6 @@ public class Admin extends User {
                 System.out.println("Дата : " + report.getDate() + "\nКлиент : " + report.getClient() + "\nПроект : " + report.getProject() + "\nСлужител : " + report.getEmployee() + "\nВреме : " + report.getTime() + "\n");
             }
         }
-        Menu.adminMenuStatisticManagement(scanner);
     }
 
     private static int dateNumderOfWeek(String date) {

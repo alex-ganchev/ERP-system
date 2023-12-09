@@ -37,7 +37,6 @@ public class Employee extends User {
             DailyReport dailyReport = new DailyReport(date, selectedClient.getName(), selectedClient.getProject(), activeUser.getName(), time);
             FileHandler.writeReport(dailyReport);
         }
-        Menu.employeeMenu(scanner);
     }
 
     public static void report(Scanner scanner) {
@@ -48,7 +47,7 @@ public class Employee extends User {
 
         List<DailyReport> reportsByEmployee = reports.stream()
                 .filter(dailyReport -> dailyReport.getEmployee().equals(activeUser.getName()))
-                .sorted(Comparator.comparing(DailyReport::getDate))
+                //.sorted(Comparator.comparing(DailyReport::getDate))
                 .toList();
 
         Map<String, List<DailyReport>> groupedDailyReports = reportsByEmployee.stream()
@@ -63,7 +62,6 @@ public class Employee extends User {
                 System.out.println("\t\t\t" + value.get(i).getTime() + " <- " /* +value.get(i).getClient() + " | " */ + value.get(i).getProject());
             }
         }
-        Menu.employeeMenu(scanner);
     }
 }
 
