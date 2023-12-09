@@ -40,9 +40,6 @@ public class Employee extends User {
     }
 
     public static void printAllReports(Scanner scanner) {
-        //TODO Да се оправи визуализацията.
-        System.out.println("------------------------------------");
-        System.out.println("Дата\t\tОбщо часове\tЧасове\t\tКлиент\t\t\t\tПроект");
         List<DailyReport> reports = FileHandler.readReports();
 
         List<DailyReport> reportsByEmployee = reports.stream()
@@ -52,14 +49,22 @@ public class Employee extends User {
         Map<LocalDate, List<DailyReport>> groupedDailyReports = reportsByEmployee.stream()
                 .sorted(Comparator.comparing(DailyReport::getDate))
                 .collect(Collectors.groupingBy(DailyReport::getDate, TreeMap::new, Collectors.toList()));
+        System.out.println("----------------------------------------------------------------------------------------");
+        System.out.printf("%-13s %-13s %-12s %-24s %-25s%n", "Дата", "Общо часове", "Часове", "Клиент", "Проект");
+        System.out.println("----------------------------------------------------------------------------------------");
 
         for (Map.Entry<LocalDate, List<DailyReport>> entry : groupedDailyReports.entrySet()) {
             LocalDate key = entry.getKey();
             List<DailyReport> value = entry.getValue();
-            System.out.print(key.format(AppConstants.DATE_FORMAT) + "\t\t" + Validation.returnAllHoursReportedByDate(key));
             for (int i = 0; i < value.size(); i++) {
-                System.out.println((i == 0 ? "\t\t" : "\t\t\t\t\t\t") + value.get(i).getTime() + "\t\t" + value.get(i).getClient() + "\t\t" + value.get(i).getProject());
+                System.out.printf("%-13s %-13s %-12s %-24s %-25s%n",
+                        (i == 0 ? key.format(AppConstants.DATE_FORMAT) : ""),
+                        (i == 0 ? Validation.returnAllHoursReportedByDate(key) : ""),
+                        value.get(i).getTime(),
+                        value.get(i).getClient(),
+                        value.get(i).getProject());
             }
+            System.out.println("----------------------------------------------------------------------------------------");
         }
     }
 }

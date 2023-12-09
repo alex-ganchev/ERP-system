@@ -5,5 +5,4 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         Menu.loginMenu(scanner);
     }
-
 }

@@ -3,12 +3,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Client {
-    private String client;
+    private String name;
     private String project;
     private LocalDate date;
 
     public String getName() {
-        return client;
+        return name;
     }
 
     public String getProject() {
@@ -20,7 +20,7 @@ public class Client {
     }
 
     public Client(String client, String project, LocalDate date) {
-        this.client = client;
+        this.name = client;
         this.project = project;
         this.date = date;
     }
@@ -54,6 +54,6 @@ public class Client {
 
     @Override
     public String toString() {
-        return client + ";" + project + ";" + date.format(AppConstants.DATE_FORMAT);
+        return name + ";" + project + ";" + date.format(AppConstants.DATE_FORMAT);
     }
 }
