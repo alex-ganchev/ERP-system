@@ -63,7 +63,7 @@ public class FileHandler {
         if (fileReader != null) {
             while (fileReader.hasNextLine()) {
                 String[] splitData = fileReader.nextLine().split(";");
-                clients.add(new Client(splitData[0], splitData[1], splitData[2]));
+                clients.add(new Client(splitData[0], splitData[1], LocalDate.parse(splitData[2], AppConstants.DATE_FORMAT)));
             }
             fileReader.close();
         }
@@ -106,5 +106,5 @@ public class FileHandler {
         }
         return reports;
     }
-    //TODO Да се добави обработка на изключение при пасването към LocalDate в readReports;
+    //TODO Да се добави обработка на изключение при пасването към LocalDate в readReports и readClients;
 }

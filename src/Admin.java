@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -33,7 +34,7 @@ public class Admin extends User {
     }
 
     public static void addNewClient(Scanner scanner) {
-        String projectDate;
+        String input;
         scanner.nextLine();
         System.out.println("------------------------------------");
         System.out.print("Въведете име на клиента : ");
@@ -42,8 +43,9 @@ public class Admin extends User {
         String projectName = scanner.nextLine();
         do {
             System.out.print("Въведете дата на проекта : ");
-            projectDate = scanner.nextLine();
-        } while (!Validation.dateFormateValidate(projectDate));
+            input = scanner.nextLine();
+        } while (!Validation.isDateFormatValid(input));
+        LocalDate projectDate = LocalDate.parse(input, AppConstants.DATE_FORMAT);
         Client newClient = new Client(clientName, projectName, projectDate);
         FileHandler.writeClient(newClient);
     }
