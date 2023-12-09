@@ -64,7 +64,7 @@ public class Admin extends User {
             System.out.println("             РЕЗУЛТАТИ");
             System.out.println("------------------------------------");
             for (DailyReport report : reportsByEmployee) {
-                System.out.println("Дата : " + report.getDate() + "\nКлиент : " + report.getClient() + "\nПроект : " + report.getProject() + "\nСлужител : " + report.getEmployee() + "\nВреме : " + report.getTime() + "\n");
+                System.out.println("Дата : " + report.getDate() + "\nКлиент : " + report.getClient().getName() + "\nПроект : " + report.getClient().getProject() + "\nСлужител : " + report.getEmployee() + "\nВреме : " + report.getTime() + "\n");
             }
         }
     }
@@ -83,7 +83,7 @@ public class Admin extends User {
             System.out.println("             РЕЗУЛТАТИ");
             System.out.println("------------------------------------");
             for (DailyReport report : reportsByNumOfWeek) {
-                System.out.println("Дата : " + report.getDate() + "\nКлиент : " + report.getClient() + "\nПроект : " + report.getProject() + "\nСлужител : " + report.getEmployee() + "\nВреме : " + report.getTime() + "\n");
+                System.out.println("Дата : " + report.getDate() + "\nКлиент : " + report.getClient().getName() + "\nПроект : " + report.getClient().getProject() + "\nСлужител : " + report.getEmployee() + "\nВреме : " + report.getTime() + "\n");
             }
         }
     }

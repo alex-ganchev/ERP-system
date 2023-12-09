@@ -2,15 +2,13 @@ import java.time.LocalDate;
 
 public class DailyReport {
     private LocalDate date;
-    private String client;
-    private String project;
+    private Client client;
     private String employee;
     private double time;
 
-    public DailyReport(LocalDate date, String client, String project, String employee, double time) {
+    public DailyReport(LocalDate date, Client client, String employee, double time) {
         this.date = date;
         this.client = client;
-        this.project = project;
         this.employee = employee;
         this.time = time;
     }
@@ -18,12 +16,8 @@ public class DailyReport {
     public LocalDate getDate() {
         return date;
     }
-    public String getClient() {
+    public Client getClient() {
         return client;
-    }
-
-    public String getProject() {
-        return project;
     }
 
     public String getEmployee() {
@@ -36,6 +30,6 @@ public class DailyReport {
 
     @Override
     public String toString() {
-        return date.format(AppConstants.DATE_FORMAT) + ';' + client + ';' + project + ';' + employee + ';' + time;
+        return date.format(AppConstants.DATE_FORMAT) + ';' + client.getName() + ';' + client.getProject() + ';' + employee + ';' + time;
     }
 }

@@ -101,7 +101,7 @@ public class FileHandler {
         if(fileReader != null){
             while (fileReader.hasNextLine()){
                 String[] splitData = fileReader.nextLine().split(";");
-                reports.add(new DailyReport(LocalDate.parse(splitData[0], AppConstants.DATE_FORMAT), splitData[1], splitData[2], splitData[3], Double.valueOf(splitData[4])));
+                reports.add(new DailyReport(LocalDate.parse(splitData[0], AppConstants.DATE_FORMAT), new Client(splitData[1], splitData[2]), splitData[3], Double.valueOf(splitData[4])));
             }
         }
         return reports;

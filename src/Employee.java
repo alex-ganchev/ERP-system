@@ -34,7 +34,7 @@ public class Employee extends User {
                 input = scanner.next();
             } while (!Validation.timeValidate(input, date));
             time = Double.parseDouble(input);
-            DailyReport dailyReport = new DailyReport(date, selectedClient.getName(), selectedClient.getProject(), activeUser.getName(), time);
+            DailyReport dailyReport = new DailyReport(date, selectedClient, activeUser.getName(), time);
             FileHandler.writeReport(dailyReport);
         }
     }
@@ -61,8 +61,8 @@ public class Employee extends User {
                         (i == 0 ? key.format(AppConstants.DATE_FORMAT) : ""),
                         (i == 0 ? Validation.returnAllHoursReportedByDate(key) : ""),
                         value.get(i).getTime(),
-                        value.get(i).getClient(),
-                        value.get(i).getProject());
+                        value.get(i).getClient().getName(),
+                        value.get(i).getClient().getProject());
             }
             System.out.println("----------------------------------------------------------------------------------------");
         }
