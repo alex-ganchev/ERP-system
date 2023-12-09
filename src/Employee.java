@@ -31,12 +31,15 @@ public class Employee extends User {
             System.out.println("За " + date.format(AppConstants.DATE_FORMAT) + " вече имате отчетени 8 часа.");
         } else {
             Client.printAllClients();
-            Client selectedClient = Client.returnSelectedClient(scanner);
+            Client selectedClient;
+            do {
+                selectedClient = Client.returnSelectedClient(scanner);
+            } while (Validation.isDateAfterClientEndDate(date, selectedClient));
             scanner.nextLine();
             do {
                 System.out.print("Въведете часове : ");
                 input = scanner.next();
-            } while (!Validation.timeValidate(input, date));
+            } while (!Validation.isTimeValid(input, date));
             time = Double.parseDouble(input);
             DailyReport dailyReport = new DailyReport(date, selectedClient, activeUser, time);
             FileHandler.writeReport(dailyReport);

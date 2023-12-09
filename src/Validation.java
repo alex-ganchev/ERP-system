@@ -2,7 +2,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class Validation {
-    public static boolean timeValidate(String input, LocalDate date) {
+    public static boolean isTimeValid(String input, LocalDate date) {
         double hours = 0;
         double allHours = returnAllHoursReportedByDate(date);
         try {
@@ -49,6 +49,14 @@ public class Validation {
         LocalDate validateDate = LocalDate.parse(input, AppConstants.DATE_FORMAT);
         if (validateDate.isAfter(LocalDate.now())) {
             System.out.println("Не можете да се отчитата за бъдещ период.");
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean isDateAfterClientEndDate(LocalDate date, Client client) {
+        if (date.isAfter(client.getDate())) {
+            System.out.println("Проекта е изтекъл към датата на отчитане!");
             return true;
         }
         return false;

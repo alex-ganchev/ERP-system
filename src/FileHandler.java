@@ -14,13 +14,13 @@ public class FileHandler {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(AppConstants.FILE_USERS, true);
             printSteam = new PrintStream(fileOutputStream);
-        } catch (FileNotFoundException e) {
-            System.out.println("Файлът не е намерен!");
-        }
-        if (printSteam != null) {
             printSteam.append(user.toString()).append("\n");
             printSteam.close();
             System.out.println("Успешен запис!");
+        } catch (FileNotFoundException e) {
+            System.out.println("Файлът не е намерен!");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -28,13 +28,13 @@ public class FileHandler {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(AppConstants.FILE_CLIENTS, true);
             printSteam = new PrintStream(fileOutputStream);
-        } catch (FileNotFoundException e) {
-            System.out.println("Файлът не е намерен!");
-        }
-        if (printSteam != null) {
             printSteam.append(client.toString()).append("\n");
             printSteam.close();
             System.out.println("Успешен запис!");
+        } catch (FileNotFoundException e) {
+            System.out.println("Файлът не е намерен!");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -42,13 +42,13 @@ public class FileHandler {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(AppConstants.FILE_DAILY_REPORTS, true);
             printSteam = new PrintStream(fileOutputStream);
-        } catch (FileNotFoundException e) {
-            System.out.println("Файлът не е намерен!");
-        }
-        if (printSteam != null) {
             printSteam.append(report.toString()).append("\n");
             printSteam.close();
             System.out.println("Успешен запис!");
+        } catch (FileNotFoundException e) {
+            System.out.println("Файлът не е намерен!");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -56,15 +56,15 @@ public class FileHandler {
         ArrayList<Client> clients = new ArrayList<>();
         try {
             fileReader = new Scanner(AppConstants.FILE_CLIENTS);
-        } catch (FileNotFoundException e) {
-            System.out.println("Файлът не е намерен!");
-        }
-        if (fileReader != null) {
             while (fileReader.hasNextLine()) {
                 String[] splitData = fileReader.nextLine().split(";");
                 clients.add(new Client(splitData[0], splitData[1], LocalDate.parse(splitData[2], AppConstants.DATE_FORMAT)));
             }
             fileReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Файлът не е намерен!");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
         return clients;
     }
@@ -73,10 +73,6 @@ public class FileHandler {
         ArrayList<User> users = new ArrayList<>();
         try {
             fileReader = new Scanner(AppConstants.FILE_USERS);
-        } catch (FileNotFoundException e) {
-            System.out.println("Файлът не е намерен!");
-        }
-        if (fileReader != null) {
             while (fileReader.hasNextLine()) {
                 String[] splitData = fileReader.nextLine().split(";");
                 if (splitData[3].equals("employee")) {
@@ -86,6 +82,10 @@ public class FileHandler {
                 }
             }
             fileReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Файлът не е намерен!");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
         return users;
     }
@@ -94,16 +94,16 @@ public class FileHandler {
         List<DailyReport> reports = new ArrayList<>();
         try {
             fileReader = new Scanner(AppConstants.FILE_DAILY_REPORTS);
-        } catch (FileNotFoundException e) {
-            System.out.println("Файлът не е намерен!");
-        }
-        if (fileReader != null) {
             while (fileReader.hasNextLine()) {
                 String[] splitData = fileReader.nextLine().split(";");
                 reports.add(new DailyReport(LocalDate.parse(splitData[0], AppConstants.DATE_FORMAT), new Client(splitData[1], splitData[2]), new Employee(splitData[3]), Double.valueOf(splitData[4])));
             }
+            fileReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Файлът не е намерен!");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
         return reports;
     }
-    //TODO Да се добави обработка на изключение при пасването към LocalDate в readReports и readClients;
 }
