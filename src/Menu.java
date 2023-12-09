@@ -156,7 +156,8 @@ public class Menu {
         System.out.println("ПОТРЕБИТЕЛ : " + User.activeUser.getName());
         System.out.println("------------------------------------");
         System.out.println("1 - Попълване на дневен отчет");
-        System.out.println("2 - Показване на статистика");
+        System.out.println("2 - Показване на пълна статистика");
+        System.out.println("3 - Статистика от дата до дата");
         System.out.println("0 - Изход");
         System.out.println("------------------------------------");
         System.out.print("Вашият избор : ");
@@ -166,7 +167,10 @@ public class Menu {
                 employeeMenuDailyReport(scanner);
                 break;
             case "2":
-                Employee.printAllReports(scanner);
+                Employee.printReports(Employee.reportsByEmployee());
+                break;
+            case "3":
+                Employee.printReports(Employee.reportsByDate(scanner));
                 break;
             case "0":
                 exit();

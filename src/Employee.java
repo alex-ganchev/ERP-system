@@ -46,14 +46,8 @@ public class Employee extends User {
         }
     }
 
-    public static void printAllReports(Scanner scanner) {
-        List<DailyReport> reports = FileHandler.readReports();
-
-        List<DailyReport> reportsByEmployee = reports.stream()
-                .filter(dailyReport -> dailyReport.getEmployee().getName().equals(activeUser.getName()))
-                .toList();
-
-        Map<LocalDate, List<DailyReport>> groupedDailyReports = reportsByEmployee.stream()
+    public static void printReports(List<DailyReport> reports) {
+        Map<LocalDate, List<DailyReport>> groupedDailyReports = reports.stream()
                 .sorted(Comparator.comparing(DailyReport::getDate))
                 .collect(Collectors.groupingBy(DailyReport::getDate, TreeMap::new, Collectors.toList()));
         System.out.println("----------------------------------------------------------------------------------------");
@@ -73,6 +67,40 @@ public class Employee extends User {
             }
             System.out.println("----------------------------------------------------------------------------------------");
         }
+    }
+
+    public static List<DailyReport> reportsByEmployee() {
+        List<DailyReport> reports = FileHandler.readReports();
+
+        List<DailyReport> reportsByEmployee = reports.stream()
+                .filter(dailyReport -> dailyReport.getEmployee().getName().equals(activeUser.getName()))
+                .toList();
+        return reportsByEmployee;
+    }
+
+    public static List<DailyReport> reportsByDate(Scanner scanner) {
+        scanner.nextLine();
+        String input;
+        LocalDate startDate;
+        LocalDate endDate;
+        do {
+            System.out.print("Въведете начална дата : ");
+            input = scanner.nextLine();
+        } while (!Validation.isDateFormatValid(input) || Validation.isDateAfterNow(input));
+        startDate = LocalDate.parse(input, AppConstants.DATE_FORMAT);
+        do {
+            System.out.print("Въведете крайна дата : ");
+            input = scanner.nextLine();
+        } while (!Validation.isDateFormatValid(input) || Validation.isDateAfterNow(input));
+        endDate = LocalDate.parse(input, AppConstants.DATE_FORMAT);
+        List<DailyReport> reports = FileHandler.readReports();
+
+        List<DailyReport> reportsByDate = reports.stream()
+                .filter(dailyReport -> dailyReport.getEmployee().getName().equals(activeUser.getName()))
+                .filter(dailyReport -> (dailyReport.getDate().isAfter(startDate) || dailyReport.getDate().isEqual(startDate))
+                        && (dailyReport.getDate().isBefore(endDate) || dailyReport.getDate().isEqual(endDate)))
+                .toList();
+        return reportsByDate;
     }
 }
 
