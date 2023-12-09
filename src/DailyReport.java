@@ -1,35 +1,27 @@
-import java.text.SimpleDateFormat;
-import java.util.Date;
-public class DailyReport {
-    private String date;
-    private String client;
-    private String project;
-    private String employee;
-    private double time;
-    public static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-    public static String toDay = dateFormat.format(new Date());
+import java.time.LocalDate;
 
-    public DailyReport(String date, String client, String project, String employee, double time) {
+public class DailyReport {
+    private LocalDate date;
+    private Client client;
+    private User employee;
+    private double time;
+
+    public DailyReport(LocalDate date, Client client, User employee, double time) {
         this.date = date;
         this.client = client;
-        this.project = project;
         this.employee = employee;
         this.time = time;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public String getClient() {
+    public Client getClient() {
         return client;
     }
 
-    public String getProject() {
-        return project;
-    }
-
-    public String getEmployee() {
+    public User getEmployee() {
         return employee;
     }
 
@@ -39,6 +31,6 @@ public class DailyReport {
 
     @Override
     public String toString() {
-        return date + ';' + client + ';' + project + ';' + employee + ';' + time;
+        return date.format(AppConstants.DATE_FORMAT) + ';' + client.getName() + ';' + client.getProject() + ';' + employee.getName() + ';' + time;
     }
 }

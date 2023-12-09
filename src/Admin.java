@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -30,11 +31,10 @@ public class Admin extends User {
         } else {
             System.out.println("Потребителя вече съществува в базата!");
         }
-        Menu.adminMenuUserManagement(scanner);
     }
 
     public static void addNewClient(Scanner scanner) {
-        String projectDate;
+        String input;
         scanner.nextLine();
         System.out.println("------------------------------------");
         System.out.print("Въведете име на клиента : ");
@@ -43,11 +43,11 @@ public class Admin extends User {
         String projectName = scanner.nextLine();
         do {
             System.out.print("Въведете дата на проекта : ");
-            projectDate = scanner.nextLine();
-        } while (!Validation.dateFormateValidate(projectDate));
+            input = scanner.nextLine();
+        } while (!Validation.isDateFormatValid(input));
+        LocalDate projectDate = LocalDate.parse(input, AppConstants.DATE_FORMAT);
         Client newClient = new Client(clientName, projectName, projectDate);
         FileHandler.writeClient(newClient);
-        Menu.adminMenuClientManagement(scanner);
     }
 
     public static void readReportsByEmployeeName(Scanner scanner) {
@@ -57,17 +57,16 @@ public class Admin extends User {
         String employeeName = scanner.nextLine();
         System.out.println("------------------------------------");
         List<DailyReport> reports = FileHandler.readReports();
-        List<DailyReport> reportsByEmployee = reports.stream().filter(dailyReport -> dailyReport.getEmployee().equals(employeeName)).collect(Collectors.toList());
+        List<DailyReport> reportsByEmployee = reports.stream().filter(dailyReport -> dailyReport.getEmployee().getName().equals(employeeName)).collect(Collectors.toList());
         if (reportsByEmployee.size() == 0) {
             System.out.println("Няма намерени резултати!");
         } else {
             System.out.println("             РЕЗУЛТАТИ");
             System.out.println("------------------------------------");
             for (DailyReport report : reportsByEmployee) {
-                System.out.println("Дата : " + report.getDate() + "\nКлиент : " + report.getClient() + "\nПроект : " + report.getProject() + "\nСлужител : " + report.getEmployee() + "\nВреме : " + report.getTime() + "\n");
+                System.out.println("Дата : " + report.getDate() + "\nКлиент : " + report.getClient().getName() + "\nПроект : " + report.getClient().getProject() + "\nСлужител : " + report.getEmployee().getName() + "\nВреме : " + report.getTime() + "\n");
             }
         }
-        Menu.adminMenuStatisticManagement(scanner);
     }
 
     public static void readReportsByNumberOfWeek(Scanner scanner) {
@@ -77,17 +76,16 @@ public class Admin extends User {
         int numberOfWeek = scanner.nextInt();
         System.out.println("------------------------------------");
         List<DailyReport> reports = FileHandler.readReports();
-        List<DailyReport> reportsByNumOfWeek = reports.stream().filter(dailyReport -> numberOfWeek == dateNumderOfWeek(dailyReport.getDate())).collect(Collectors.toList());
+        List<DailyReport> reportsByNumOfWeek = reports.stream().filter(dailyReport -> numberOfWeek == dateNumderOfWeek(dailyReport.getDate().format(AppConstants.DATE_FORMAT))).collect(Collectors.toList());
         if (reportsByNumOfWeek.size() == 0) {
             System.out.println("Няма намерени резултати!");
         } else {
             System.out.println("             РЕЗУЛТАТИ");
             System.out.println("------------------------------------");
             for (DailyReport report : reportsByNumOfWeek) {
-                System.out.println("Дата : " + report.getDate() + "\nКлиент : " + report.getClient() + "\nПроект : " + report.getProject() + "\nСлужител : " + report.getEmployee() + "\nВреме : " + report.getTime() + "\n");
+                System.out.println("Дата : " + report.getDate() + "\nКлиент : " + report.getClient().getName() + "\nПроект : " + report.getClient().getProject() + "\nСлужител : " + report.getEmployee().getName() + "\nВреме : " + report.getTime() + "\n");
             }
         }
-        Menu.adminMenuStatisticManagement(scanner);
     }
 
     private static int dateNumderOfWeek(String date) {

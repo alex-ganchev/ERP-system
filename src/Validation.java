@@ -1,32 +1,32 @@
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
-public abstract class Validation {
-    public static boolean timeValidate(String input, String date) {
-        double time = 0;
+public class Validation {
+    public static boolean isTimeValid(String input, LocalDate date) {
+        double hours = 0;
         double allHours = returnAllHoursReportedByDate(date);
         try {
-            time = Double.parseDouble(input);
+            hours = Double.parseDouble(input);
         } catch (Exception e) {
             System.out.println("Въведен е невалиден формат за час!");
         }
-        if (time > 8) {
+        if (hours > 8) {
             System.out.println("Въведени са повече от 8 часа!");
-        } else if (time < 0) {
+        } else if (hours < 0) {
             System.out.println("Въведени са отрицателни часове!");
-        } else if (time > 0 && ((allHours + time) <= 8)) {
+        } else if (hours > 0 && ((allHours + hours) <= 8)) {
             return true;
-        } else if (allHours + time > 8){
-            System.out.println("За " + date + " вече имате отчетени " + allHours + " часа.");
+        } else if (allHours + hours > 8) {
+            System.out.println("За " + date.format(AppConstants.DATE_FORMAT) + " вече имате отчетени " + allHours + " часа.");
         }
         return false;
     }
 
-    public static double returnAllHoursReportedByDate(String date) {
+    public static double returnAllHoursReportedByDate(LocalDate date) {
         double allHours = 0;
         List<DailyReport> reports = FileHandler.readReports();
         List<DailyReport> reportsByEmployee = reports.stream()
-                .filter(dailyReport -> dailyReport.getEmployee().equals(User.activeUser.getName()))
+                .filter(dailyReport -> dailyReport.getEmployee().getName().equals(User.activeUser.getName()))
                 .filter(dailyReport -> dailyReport.getDate().equals(date))
                 .toList();
         for (DailyReport report : reportsByEmployee) {
@@ -35,19 +35,30 @@ public abstract class Validation {
         return allHours;
     }
 
-    public static boolean dateFormateValidate(String date) {
+    public static boolean isDateFormatValid(String input) {
         try {
-            Date validateDate = DailyReport.dateFormat.parse(date);
-            if (date.equals(DailyReport.dateFormat.format(validateDate))) {
-                return true;
-            } else {
-                throw new Exception();
-            }
+            LocalDate.parse(input, AppConstants.DATE_FORMAT);
+            return true;
         } catch (Exception e) {
             System.out.println("Въведете дата във формат дд/мм/гггг");
         }
         return false;
     }
-    //TODO Да се добави валидация за въвеждане на дата по-голяма от toDay и по-малка от седмица назад.
 
+    public static boolean isDateAfterNow(String input) {
+        LocalDate validateDate = LocalDate.parse(input, AppConstants.DATE_FORMAT);
+        if (validateDate.isAfter(LocalDate.now())) {
+            System.out.println("Не можете да се отчитата за бъдещ период.");
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean isDateAfterClientEndDate(LocalDate date, Client client) {
+        if (date.isAfter(client.getDate())) {
+            System.out.println("Проекта е изтекъл към датата на отчитане!");
+            return true;
+        }
+        return false;
+    }
 }

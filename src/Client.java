@@ -1,39 +1,33 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Client {
-    private String client;
+    private String name;
     private String project;
-    private String date;
+    private LocalDate date;
 
     public String getName() {
-        return client;
-    }
-
-    public void setName(String name) {
-        this.client = name;
+        return name;
     }
 
     public String getProject() {
         return project;
     }
 
-    public void setProject(String project) {
-        this.project = project;
-    }
-
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public Client(String client, String project, LocalDate date) {
+        this.name = client;
+        this.project = project;
         this.date = date;
     }
 
-    public Client(String client, String project, String date) {
-        this.client = client;
+    public Client(String client, String project) {
+        this.name = client;
         this.project = project;
-        this.date = date;
     }
 
     public static void printAllClients() {
@@ -42,7 +36,7 @@ public class Client {
             System.out.println("------------------------------------");
             System.out.println(i + 1 + " - Клиент : " + clientsList.get(i).getName());
             System.out.println("    Проект : " + clientsList.get(i).getProject());
-            System.out.println("    Дата   : " + clientsList.get(i).getDate());
+            System.out.println("    Дата   : " + clientsList.get(i).getDate().format(AppConstants.DATE_FORMAT));
         }
     }
 
@@ -65,6 +59,6 @@ public class Client {
 
     @Override
     public String toString() {
-        return client + ";" + project + ";" + date;
+        return name + ";" + project + ";" + date.format(AppConstants.DATE_FORMAT);
     }
 }
