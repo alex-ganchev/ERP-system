@@ -1,7 +1,6 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
-public abstract class Menu {
+public class Menu {
     public static void loginMenu(Scanner scanner) {
         String password;
         String username;
@@ -56,15 +55,12 @@ public abstract class Menu {
                 adminMenuStatisticManagement(scanner);
                 break;
             case "0":
-                System.out.println("--------------- ИЗХОД --------------");
-                System.out.println("Андрей Димитров и Александър Ганчев");
-                System.out.println("    https://digitalrazgrad.org/");
-                System.out.println("------------------------------------");
+                exit();
                 break;
             default:
                 System.out.println("Въведена е невалидна стойност!");
-                adminMenu(scanner);
         }
+        adminMenu(scanner);
     }
 
     public static void adminMenuClientManagement(Scanner scanner) {
@@ -82,7 +78,6 @@ public abstract class Menu {
             switch (input) {
                 case "1":
                     Admin.addNewClient(scanner);
-                    //adminMenuClientManagement(scanner);
                     break;
                 case "2":
                     Client.printAllClients();
@@ -112,11 +107,9 @@ public abstract class Menu {
             switch (input) {
                 case "1":
                     Admin.addNewUser(scanner, Role.employee);
-                    //adminMenuUserManagement(scanner);
                     break;
                 case "2":
                     Admin.addNewUser(scanner, Role.admin);
-                    //adminMenuUserManagement(scanner);
                     break;
                 case "0":
                     System.out.println("Избрахте изход!");
@@ -128,7 +121,7 @@ public abstract class Menu {
         adminMenu(scanner);
     }
 
-    public static void adminMenuStatisticManagement(Scanner scanner){
+    public static void adminMenuStatisticManagement(Scanner scanner) {
         String input;
         do {
             System.out.println("------------------------------------");
@@ -143,11 +136,9 @@ public abstract class Menu {
             switch (input) {
                 case "1":
                     Admin.readReportsByEmployeeName(scanner);
-                    //adminMenuStatisticManagement(scanner);
                     break;
                 case "2":
                     Admin.readReportsByNumberOfWeek(scanner);
-                    //adminMenuStatisticManagement(scanner);
                     break;
                 case "0":
                     System.out.println("Избрахте изход!");
@@ -161,7 +152,6 @@ public abstract class Menu {
 
     public static void employeeMenu(Scanner scanner) {
         String input;
-
         System.out.println("--------------- МЕНЮ ---------------");
         System.out.println("ПОТРЕБИТЕЛ : " + User.activeUser.getName());
         System.out.println("------------------------------------");
@@ -176,25 +166,21 @@ public abstract class Menu {
                 employeeMenuDailyReport(scanner);
                 break;
             case "2":
-                Employee.report(scanner);
+                Employee.printAllReports(scanner);
                 break;
             case "0":
-                System.out.println("--------------- ИЗХОД --------------");
-                System.out.println("Андрей Димитров и Александър Ганчев");
-                System.out.println("    https://digitalrazgrad.org/");
-                System.out.println("------------------------------------");
+                exit();
                 break;
             default:
                 System.out.println("Въведена е невалидна стойност!");
-                employeeMenu(scanner);
         }
+        employeeMenu(scanner);
     }
 
     public static void employeeMenuDailyReport(Scanner scanner) {
         String input;
-        String date = DailyReport.toDay;
         System.out.println("----------- ДНЕВЕН ОТЧЕТ -----------");
-        System.out.println("1 - Дневен отчет за : " + date);
+        System.out.println("1 - Дневен отчет за : " + AppConstants.toDayString);
         System.out.println("2 - Дневен отчет за отминал период");
         System.out.println("0 - Изход");
         System.out.println("------------------------------------");
@@ -202,20 +188,26 @@ public abstract class Menu {
         input = scanner.next();
         switch (input) {
             case "1":
-                Employee.addNewReport(scanner, date);
-                //employeeMenu(scanner);
+                Employee.addDailyReport(scanner, AppConstants.toDay);
                 break;
             case "2":
-                Employee.addNewReport(scanner, null);
-                //employeeMenu(scanner);
+                Employee.addDailyReport(scanner, null);
                 break;
             case "0":
                 employeeMenu(scanner);
                 break;
             default:
                 System.out.println("Въведена е невалидна стойност!");
-                employeeMenuDailyReport(scanner);
         }
+        employeeMenuDailyReport(scanner);
+    }
+
+    public static void exit() {
+        System.out.println("--------------- ИЗХОД --------------");
+        System.out.println("Андрей Димитров и Александър Ганчев");
+        System.out.println("    https://digitalrazgrad.org/");
+        System.out.println("------------------------------------");
+        System.exit(0);
     }
 
 }

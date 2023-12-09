@@ -74,7 +74,7 @@ public class Admin extends User {
         int numberOfWeek = scanner.nextInt();
         System.out.println("------------------------------------");
         List<DailyReport> reports = FileHandler.readReports();
-        List<DailyReport> reportsByNumOfWeek = reports.stream().filter(dailyReport -> numberOfWeek == dateNumderOfWeek(dailyReport.getDate())).collect(Collectors.toList());
+        List<DailyReport> reportsByNumOfWeek = reports.stream().filter(dailyReport -> numberOfWeek == dateNumderOfWeek(dailyReport.getDate().format(AppConstants.DATE_FORMAT))).collect(Collectors.toList());
         if (reportsByNumOfWeek.size() == 0) {
             System.out.println("Няма намерени резултати!");
         } else {

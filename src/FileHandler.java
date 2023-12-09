@@ -2,20 +2,18 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public abstract class FileHandler {
+public class FileHandler {
     private static PrintStream printSteam = null;
     private static Scanner fileReader = null;
-    private static final File FILE_USERS = new File("src/users.csv");
-    private static final File FILE_CLIENTS = new File("src/clients.csv");
-    private static final File FILE_DAILY_REPORTS = new File("src/reports.csv");
 
     public static void writeUser(User user) {
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream(FILE_USERS, true);
+            FileOutputStream fileOutputStream = new FileOutputStream(AppConstants.FILE_USERS, true);
             printSteam = new PrintStream(fileOutputStream);
         } catch (FileNotFoundException e) {
             System.out.println("Файлът не е намерен!");
@@ -29,7 +27,7 @@ public abstract class FileHandler {
 
     public static void writeClient(Client client) {
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream(FILE_CLIENTS, true);
+            FileOutputStream fileOutputStream = new FileOutputStream(AppConstants.FILE_CLIENTS, true);
             printSteam = new PrintStream(fileOutputStream);
         } catch (FileNotFoundException e) {
             System.out.println("Файлът не е намерен!");
@@ -43,7 +41,7 @@ public abstract class FileHandler {
 
     public static void writeReport(DailyReport report) {
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream(FILE_DAILY_REPORTS, true);
+            FileOutputStream fileOutputStream = new FileOutputStream(AppConstants.FILE_DAILY_REPORTS, true);
             printSteam = new PrintStream(fileOutputStream);
         } catch (FileNotFoundException e) {
             System.out.println("Файлът не е намерен!");
@@ -58,7 +56,7 @@ public abstract class FileHandler {
     public static ArrayList<Client> readClients() {
         ArrayList<Client> clients = new ArrayList<>();
         try {
-            fileReader = new Scanner(FILE_CLIENTS);
+            fileReader = new Scanner(AppConstants.FILE_CLIENTS);
         } catch (FileNotFoundException e) {
             System.out.println("Файлът не е намерен!");
         }
@@ -75,7 +73,7 @@ public abstract class FileHandler {
     public static ArrayList<User> readUsers() {
         ArrayList<User> users = new ArrayList<>();
         try {
-            fileReader = new Scanner(FILE_USERS);
+            fileReader = new Scanner(AppConstants.FILE_USERS);
         } catch (FileNotFoundException e) {
             System.out.println("Файлът не е намерен!");
         }
@@ -96,16 +94,17 @@ public abstract class FileHandler {
     public static List<DailyReport> readReports() {
         List<DailyReport> reports = new ArrayList<>();
         try{
-            fileReader = new Scanner(FILE_DAILY_REPORTS);
+            fileReader = new Scanner(AppConstants.FILE_DAILY_REPORTS);
         } catch (FileNotFoundException e) {
             System.out.println("Файлът не е намерен!");
         }
         if(fileReader != null){
             while (fileReader.hasNextLine()){
                 String[] splitData = fileReader.nextLine().split(";");
-                reports.add(new DailyReport(splitData[0], splitData[1], splitData[2], splitData[3], Double.valueOf(splitData[4])));
+                reports.add(new DailyReport(LocalDate.parse(splitData[0], AppConstants.DATE_FORMAT), splitData[1], splitData[2], splitData[3], Double.valueOf(splitData[4])));
             }
         }
         return reports;
     }
+    //TODO Да се добави обработка на изключение при пасването към LocalDate в readReports;
 }

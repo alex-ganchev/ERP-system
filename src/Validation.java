@@ -1,8 +1,8 @@
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
-public abstract class Validation {
-    public static boolean timeValidate(String input, String date) {
+public class Validation {
+    public static boolean timeValidate(String input, LocalDate date) {
         double time = 0;
         double allHours = returnAllHoursReportedByDate(date);
         try {
@@ -16,18 +16,18 @@ public abstract class Validation {
             System.out.println("Въведени са отрицателни часове!");
         } else if (time > 0 && ((allHours + time) <= 8)) {
             return true;
-        } else if (allHours + time > 8){
-            System.out.println("За " + date + " вече имате отчетени " + allHours + " часа.");
+        } else if (allHours + time > 8) {
+            System.out.println("За " + date.format(AppConstants.DATE_FORMAT) + " вече имате отчетени " + allHours + " часа.");
         }
         return false;
     }
 
-    public static double returnAllHoursReportedByDate(String date) {
+    public static double returnAllHoursReportedByDate(LocalDate dateString) {
         double allHours = 0;
         List<DailyReport> reports = FileHandler.readReports();
         List<DailyReport> reportsByEmployee = reports.stream()
                 .filter(dailyReport -> dailyReport.getEmployee().equals(User.activeUser.getName()))
-                .filter(dailyReport -> dailyReport.getDate().equals(date))
+                .filter(dailyReport -> dailyReport.getDate().equals(dateString))
                 .toList();
         for (DailyReport report : reportsByEmployee) {
             allHours += report.getTime();
@@ -35,19 +35,18 @@ public abstract class Validation {
         return allHours;
     }
 
-    public static boolean dateFormateValidate(String date) {
+    public static boolean dateFormateValidate(String dateString) {
         try {
-            Date validateDate = DailyReport.dateFormat.parse(date);
-            if (date.equals(DailyReport.dateFormat.format(validateDate))) {
-                return true;
+            LocalDate validateDate = LocalDate.parse(dateString, AppConstants.DATE_FORMAT);
+            if (validateDate.isAfter(LocalDate.now())) {
+                System.out.println("Не можете да се отчитата за бъдещ период.");
             } else {
-                throw new Exception();
+                return true;
             }
         } catch (Exception e) {
             System.out.println("Въведете дата във формат дд/мм/гггг");
         }
         return false;
     }
-    //TODO Да се добави валидация за въвеждане на дата по-голяма от toDay и по-малка от седмица назад.
 
 }
