@@ -4,7 +4,7 @@ import java.util.List;
 public class Validation {
     public static boolean isTimeValid(String input, LocalDate date) {
         double hours = 0;
-        double allHours = returnAllHoursReportedByDate(date);
+        double allHours = returnAllHoursReportedByDate(date, User.activeUser);
         try {
             hours = Double.parseDouble(input);
         } catch (Exception e) {
@@ -22,11 +22,11 @@ public class Validation {
         return false;
     }
 
-    public static double returnAllHoursReportedByDate(LocalDate date) {
+    public static double returnAllHoursReportedByDate(LocalDate date, User user) {
         double allHours = 0;
         List<DailyReport> reports = FileHandler.readReports();
         List<DailyReport> reportsByEmployee = reports.stream()
-                .filter(dailyReport -> dailyReport.getEmployee().getName().equals(User.activeUser.getName()))
+                .filter(dailyReport -> dailyReport.getEmployee().getName().equals(user.getName()))
                 .filter(dailyReport -> dailyReport.getDate().equals(date))
                 .toList();
         for (DailyReport report : reportsByEmployee) {

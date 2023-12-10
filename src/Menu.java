@@ -40,6 +40,7 @@ public class Menu {
         System.out.println("1 - Управление на клиенти");
         System.out.println("2 - Управление на потребители");
         System.out.println("3 - Показване на статистика");
+        System.out.println("4 - Попълване на дневен отчет");
         System.out.println("0 - Изход");
         System.out.println("------------------------------------");
         System.out.print("Вашият избор : ");
@@ -53,6 +54,9 @@ public class Menu {
                 break;
             case "3":
                 adminMenuStatisticManagement(scanner);
+                break;
+            case "4":
+                menuDailyReport(scanner);
                 break;
             case "0":
                 exit();
@@ -168,7 +172,7 @@ public class Menu {
         input = scanner.next();
         switch (input) {
             case "1":
-                employeeMenuDailyReport(scanner);
+                menuDailyReport(scanner);
                 break;
             case "2":
                 ReportGenerator.printReports(ReportGenerator.reportsByUser(User.activeUser.getName()));
@@ -185,7 +189,7 @@ public class Menu {
         employeeMenu(scanner);
     }
 
-    public static void employeeMenuDailyReport(Scanner scanner) {
+    public static void menuDailyReport(Scanner scanner) {
         String input;
         System.out.println("----------- ДНЕВЕН ОТЧЕТ -----------");
         System.out.println("1 - Дневен отчет за : " + AppConstants.toDayString);
@@ -196,10 +200,10 @@ public class Menu {
         input = scanner.next();
         switch (input) {
             case "1":
-                Employee.addDailyReport(scanner, AppConstants.toDay);
+                User.addDailyReport(scanner, AppConstants.toDay);
                 break;
             case "2":
-                Employee.addDailyReport(scanner, null);
+                User.addDailyReport(scanner, null);
                 break;
             case "0":
                 employeeMenu(scanner);
@@ -207,7 +211,7 @@ public class Menu {
             default:
                 System.out.println("Въведена е невалидна стойност!");
         }
-        employeeMenuDailyReport(scanner);
+        menuDailyReport(scanner);
     }
 
     public static void exit() {

@@ -21,7 +21,7 @@ public class ReportGenerator {
                 for (int i = 0; i < value.size(); i++) {
                     System.out.printf("%-13s %-13s %-12s %-24s %-25s%n",
                             (i == 0 ? key.format(AppConstants.DATE_FORMAT) : ""),
-                            (i == 0 ? Validation.returnAllHoursReportedByDate(key) : ""),
+                            (i == 0 ? Validation.returnAllHoursReportedByDate(key, value.get(i).getEmployee()) : ""),
                             value.get(i).getTime(),
                             value.get(i).getClient().getName(),
                             value.get(i).getClient().getProject());
@@ -34,10 +34,10 @@ public class ReportGenerator {
     public static List<DailyReport> reportsByUser(String name) {
         List<DailyReport> reports = FileHandler.readReports();
 
-        List<DailyReport> reportsByEmployee = reports.stream()
+        List<DailyReport> reportsByUser = reports.stream()
                 .filter(dailyReport -> dailyReport.getEmployee().getName().equalsIgnoreCase(name))
                 .toList();
-        return reportsByEmployee;
+        return reportsByUser;
     }
 
     public static void reportsByUser(Scanner scanner) {
