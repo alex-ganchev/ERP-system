@@ -26,8 +26,8 @@ public class Employee extends User {
             date = LocalDate.parse(input, AppConstants.DATE_FORMAT);
         }
 
-        if (Validation.returnAllHoursReportedByDate(date) == 8) {
-            System.out.println("За " + date.format(AppConstants.DATE_FORMAT) + " вече имате отчетени 8 часа.");
+        if (Validation.returnAllHoursReportedByDate(date) == AppConstants.MAX_WORKING_HOURS) {
+            System.out.println("За " + date.format(AppConstants.DATE_FORMAT) + " вече имате отчетени " + AppConstants.MAX_WORKING_HOURS + " часа.");
         } else {
             Client.printAllClients();
             Client selectedClient;

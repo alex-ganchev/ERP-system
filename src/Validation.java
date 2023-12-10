@@ -10,13 +10,13 @@ public class Validation {
         } catch (Exception e) {
             System.out.println("Въведен е невалиден формат за час!");
         }
-        if (hours > 8) {
-            System.out.println("Въведени са повече от 8 часа!");
+        if (hours > AppConstants.MAX_WORKING_HOURS) {
+            System.out.println("Въведени са повече от " + AppConstants.MAX_WORKING_HOURS + " часа!");
         } else if (hours < 0) {
             System.out.println("Въведени са отрицателни часове!");
-        } else if (hours > 0 && ((allHours + hours) <= 8)) {
+        } else if (hours > 0 && ((allHours + hours) <= AppConstants.MAX_WORKING_HOURS)) {
             return true;
-        } else if (allHours + hours > 8) {
+        } else if (allHours + hours > AppConstants.MAX_WORKING_HOURS) {
             System.out.println("За " + date.format(AppConstants.DATE_FORMAT) + " вече имате отчетени " + allHours + " часа.");
         }
         return false;

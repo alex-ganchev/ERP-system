@@ -139,7 +139,7 @@ public class Menu {
             input = scanner.next();
             switch (input) {
                 case "1":
-                    Admin.readReportsByEmployeeName(scanner);
+                    ReportGenerator.reportsByUser(scanner);
                     break;
                 case "2":
                     Admin.readReportsByNumberOfWeek(scanner);
@@ -171,7 +171,7 @@ public class Menu {
                 employeeMenuDailyReport(scanner);
                 break;
             case "2":
-                ReportGenerator.printReports(ReportGenerator.reportsByUser(User.activeUser));
+                ReportGenerator.printReports(ReportGenerator.reportsByUser(User.activeUser.getName()));
                 break;
             case "3":
                 ReportGenerator.printReports(ReportGenerator.reportsByDate(scanner));
