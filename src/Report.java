@@ -2,7 +2,7 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class ReportGenerator {
+public class Report {
     public static void printReports(List<DailyReport> reports) {
         if (reports.isEmpty()) {
             System.out.println("Няма намерени резултати!");
@@ -46,7 +46,7 @@ public class ReportGenerator {
         System.out.print("Въведете име на служител : ");
         String employeeName = scanner.nextLine();
         System.out.println("------------------------------------");
-        ReportGenerator.printReports(ReportGenerator.reportsByUser(employeeName));
+        Report.printReports(Report.reportsByUser(employeeName));
     }
 
     public static List<DailyReport> reportsByDate(Scanner scanner) {

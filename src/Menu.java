@@ -143,7 +143,7 @@ public class Menu {
             input = scanner.next();
             switch (input) {
                 case "1":
-                    ReportGenerator.reportsByUser(scanner);
+                    Report.reportsByUser(scanner);
                     break;
                 case "2":
                     Admin.readReportsByNumberOfWeek(scanner);
@@ -175,10 +175,10 @@ public class Menu {
                 menuDailyReport(scanner);
                 break;
             case "2":
-                ReportGenerator.printReports(ReportGenerator.reportsByUser(User.activeUser.getName()));
+                Report.printReports(Report.reportsByUser(User.activeUser.getName()));
                 break;
             case "3":
-                ReportGenerator.printReports(ReportGenerator.reportsByDate(scanner));
+                Report.printReports(Report.reportsByDate(scanner));
                 break;
             case "0":
                 exit();
@@ -193,7 +193,7 @@ public class Menu {
         String input;
         System.out.println("----------- ДНЕВЕН ОТЧЕТ -----------");
         System.out.println("1 - Дневен отчет за : " + AppConstants.toDayString);
-        System.out.println("2 - Дневен отчет за отминал период");
+        System.out.println("2 - Дневен отчет за минал период");
         System.out.println("0 - Изход");
         System.out.println("------------------------------------");
         System.out.print("Вашият избор : ");
@@ -206,7 +206,11 @@ public class Menu {
                 User.addDailyReport(scanner, null);
                 break;
             case "0":
-                employeeMenu(scanner);
+                if(User.activeUser.getRole().equals(Role.ADMIN)){
+                    adminMenu(scanner);
+                }else{
+                    employeeMenu(scanner);
+                }
                 break;
             default:
                 System.out.println("Въведена е невалидна стойност!");
