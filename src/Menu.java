@@ -193,7 +193,7 @@ public class Menu {
         String input;
         System.out.println("----------- ДНЕВЕН ОТЧЕТ -----------");
         System.out.println("1 - Дневен отчет за : " + AppConstants.toDayString);
-        System.out.println("2 - Дневен отчет за отминал период");
+        System.out.println("2 - Дневен отчет за минал период");
         System.out.println("0 - Изход");
         System.out.println("------------------------------------");
         System.out.print("Вашият избор : ");
@@ -206,7 +206,11 @@ public class Menu {
                 User.addDailyReport(scanner, null);
                 break;
             case "0":
-                employeeMenu(scanner);
+                if(User.activeUser.getRole().equals(Role.ADMIN)){
+                    adminMenu(scanner);
+                }else{
+                    employeeMenu(scanner);
+                }
                 break;
             default:
                 System.out.println("Въведена е невалидна стойност!");
