@@ -17,6 +17,9 @@ public abstract class User {
         this.username = username;
     }
 
+    public String getPassword() {
+        return password;
+    }
     public void setPassword(String password) {
         this.password = password;
     }
@@ -35,27 +38,6 @@ public abstract class User {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public static boolean validateLogin(String username, String password) {
-        ArrayList<User> users = FileHandler.readUsers();
-        for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).username.equals(username) && users.get(i).password.equals(password)) {
-                activeUser = users.get(i);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static boolean validateNewUser(String username, String name) {
-        ArrayList<User> users = FileHandler.readUsers();
-        for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).username.equalsIgnoreCase(username) || users.get(i).name.equalsIgnoreCase(name)) {
-                return false;
-            }
-        }
-        return true;
     }
 
     public static void printAllUsers() {

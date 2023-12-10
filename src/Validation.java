@@ -1,7 +1,29 @@
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Validation {
+
+    public static boolean validateLogin(String username, String password) {
+        ArrayList<User> users = FileHandler.readUsers();
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getUsername().equals(username) && users.get(i).getPassword().equals(password)) {
+                User.activeUser = users.get(i);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean validateNewUser(String username, String name) {
+        ArrayList<User> users = FileHandler.readUsers();
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getUsername().equalsIgnoreCase(username) || users.get(i).getName().equalsIgnoreCase(name)) {
+                return false;
+            }
+        }
+        return true;
+    }
     public static boolean isTimeValid(String input, LocalDate date) {
         double hours = 0;
         double allHours = returnAllHoursReportedByDate(date, User.activeUser);

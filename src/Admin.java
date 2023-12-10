@@ -20,7 +20,7 @@ public class Admin extends User {
         String username = scanner.nextLine();
         System.out.print("Въведете парола : ");
         String password = scanner.nextLine();
-        if (User.validateNewUser(username, name)) {
+        if (Validation.validateNewUser(username, name)) {
             if (role.equals(Role.ADMIN)) {
                 FileHandler.writeUser(new Admin(name, username, password));
             } else if (role.equals(Role.EMPLOYEE)) {
