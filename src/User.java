@@ -1,4 +1,6 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public abstract class User {
     public static User activeUser;
@@ -18,7 +20,6 @@ public abstract class User {
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -39,24 +40,44 @@ public abstract class User {
         this.name = name;
     }
 
-    public static boolean validateLogin(String username, String password) {
+    public static void printAllUsers() {
         ArrayList<User> users = FileHandler.readUsers();
         for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).username.equals(username) && users.get(i).password.equals(password)) {
-                activeUser = users.get(i);
-                return true;
-            }
+            System.out.println("------------------------------------");
+            System.out.println(i + 1 + " - " + users.get(i).getRole().getName() + " : " + users.get(i).getName());
+            System.out.println("    username : " + users.get(i).getUsername());
         }
-        return false;
     }
-    public static boolean validateNewUser(String username, String name) {
-        ArrayList<User> users = FileHandler.readUsers();
-        for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).username.equalsIgnoreCase(username) || users.get(i).name.equalsIgnoreCase(name)) {
-                return false;
-            }
+
+    public static void addDailyReport(Scanner scanner, LocalDate date) {
+        double time;
+        String input;
+        scanner.nextLine();
+        if (date == null) {
+            do {
+                System.out.print("Въведете дата : ");
+                input = scanner.nextLine();
+            } while (!Validation.isDateFormatValid(input) || Validation.isDateAfterNow(input));
+            date = LocalDate.parse(input, AppConstants.DATE_FORMAT);
         }
-        return true;
+
+        if (Validation.returnAllHoursReportedByDate(date, activeUser) == AppConstants.MAX_WORKING_HOURS) {
+            System.out.println("За " + date.format(AppConstants.DATE_FORMAT) + " вече имате отчетени " + AppConstants.MAX_WORKING_HOURS + " часа.");
+        } else {
+            Client.printAllClients();
+            Client selectedClient;
+            do {
+                selectedClient = Client.returnSelectedClient(scanner);
+            } while (Validation.isDateAfterClientEndDate(date, selectedClient));
+            scanner.nextLine();
+            do {
+                System.out.print("Въведете часове : ");
+                input = scanner.next();
+            } while (!Validation.isTimeValid(input, date));
+            time = Double.parseDouble(input);
+            DailyReport dailyReport = new DailyReport(date, selectedClient, activeUser, time);
+            FileHandler.writeReport(dailyReport);
+        }
     }
 
     @Override

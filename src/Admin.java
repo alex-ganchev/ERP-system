@@ -8,7 +8,7 @@ public class Admin extends User {
         super.setUsername(username);
         super.setPassword(password);
         super.setName(name);
-        super.setRole(Role.admin);
+        super.setRole(Role.ADMIN);
     }
 
     public static void addNewUser(Scanner scanner, Role role) {
@@ -20,10 +20,10 @@ public class Admin extends User {
         String username = scanner.nextLine();
         System.out.print("Въведете парола : ");
         String password = scanner.nextLine();
-        if (User.validateNewUser(username, name)) {
-            if (role.equals(Role.admin)) {
+        if (Validation.validateNewUser(username, name)) {
+            if (role.equals(Role.ADMIN)) {
                 FileHandler.writeUser(new Admin(name, username, password));
-            } else if (role.equals(Role.employee)) {
+            } else if (role.equals(Role.EMPLOYEE)) {
                 FileHandler.writeUser(new Employee(name, username, password));
             } else {
                 System.out.println("Нещо се обърка!");
@@ -48,25 +48,6 @@ public class Admin extends User {
         LocalDate projectDate = LocalDate.parse(input, AppConstants.DATE_FORMAT);
         Client newClient = new Client(clientName, projectName, projectDate);
         FileHandler.writeClient(newClient);
-    }
-
-    public static void readReportsByEmployeeName(Scanner scanner) {
-        scanner.nextLine();
-        System.out.println("------------------------------------");
-        System.out.print("Въведете име на служителя : ");
-        String employeeName = scanner.nextLine();
-        System.out.println("------------------------------------");
-        List<DailyReport> reports = FileHandler.readReports();
-        List<DailyReport> reportsByEmployee = reports.stream().filter(dailyReport -> dailyReport.getEmployee().getName().equals(employeeName)).collect(Collectors.toList());
-        if (reportsByEmployee.size() == 0) {
-            System.out.println("Няма намерени резултати!");
-        } else {
-            System.out.println("             РЕЗУЛТАТИ");
-            System.out.println("------------------------------------");
-            for (DailyReport report : reportsByEmployee) {
-                System.out.println("Дата : " + report.getDate() + "\nКлиент : " + report.getClient().getName() + "\nПроект : " + report.getClient().getProject() + "\nСлужител : " + report.getEmployee().getName() + "\nВреме : " + report.getTime() + "\n");
-            }
-        }
     }
 
     public static void readReportsByNumberOfWeek(Scanner scanner) {

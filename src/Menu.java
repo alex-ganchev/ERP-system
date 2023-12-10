@@ -13,7 +13,7 @@ public class Menu {
             username = scanner.next();
             System.out.print("Въведете парола : ");
             password = scanner.next();
-            if (!User.validateLogin(username, password)) {
+            if (!Validation.validateLogin(username, password)) {
                 System.out.println("------------------------------------");
                 System.out.println("Грешно потребителско име или парола!");
                 System.out.println("------------------------------------");
@@ -23,9 +23,9 @@ public class Menu {
     }
 
     private static void defineMenu(Scanner scanner) {
-        if (User.activeUser.getRole().equals(Role.admin)) {
+        if (User.activeUser.getRole().equals(Role.ADMIN)) {
             adminMenu(scanner);
-        } else if (User.activeUser.getRole().equals(Role.employee)) {
+        } else if (User.activeUser.getRole().equals(Role.EMPLOYEE)) {
             employeeMenu(scanner);
         } else {
             System.out.println("Нещо се обърка!");
@@ -35,11 +35,12 @@ public class Menu {
     public static void adminMenu(Scanner scanner) {
         String input;
         System.out.println("--------------- МЕНЮ ---------------");
-        System.out.println("АДМИНИСТРАТОР : " + User.activeUser.getName());
+        System.out.println(User.activeUser.getRole().getName() + " : " + User.activeUser.getName());
         System.out.println("------------------------------------");
         System.out.println("1 - Управление на клиенти");
         System.out.println("2 - Управление на потребители");
         System.out.println("3 - Показване на статистика");
+        System.out.println("4 - Попълване на дневен отчет");
         System.out.println("0 - Изход");
         System.out.println("------------------------------------");
         System.out.print("Вашият избор : ");
@@ -53,6 +54,9 @@ public class Menu {
                 break;
             case "3":
                 adminMenuStatisticManagement(scanner);
+                break;
+            case "4":
+                menuDailyReport(scanner);
                 break;
             case "0":
                 exit();
@@ -100,16 +104,20 @@ public class Menu {
             System.out.println("------------------------------------");
             System.out.println("1 - Добавяне на служител");
             System.out.println("2 - Добавяне на администратор");
+            System.out.println("3 - Списък на потребителите");
             System.out.println("0 - Изход");
             System.out.println("------------------------------------");
             System.out.print("Вашият избор : ");
             input = scanner.next();
             switch (input) {
                 case "1":
-                    Admin.addNewUser(scanner, Role.employee);
+                    Admin.addNewUser(scanner, Role.EMPLOYEE);
                     break;
                 case "2":
-                    Admin.addNewUser(scanner, Role.admin);
+                    Admin.addNewUser(scanner, Role.ADMIN);
+                    break;
+                case "3":
+                    User.printAllUsers();
                     break;
                 case "0":
                     System.out.println("Избрахте изход!");
@@ -135,7 +143,7 @@ public class Menu {
             input = scanner.next();
             switch (input) {
                 case "1":
-                    Admin.readReportsByEmployeeName(scanner);
+                    ReportGenerator.reportsByUser(scanner);
                     break;
                 case "2":
                     Admin.readReportsByNumberOfWeek(scanner);
@@ -153,7 +161,7 @@ public class Menu {
     public static void employeeMenu(Scanner scanner) {
         String input;
         System.out.println("--------------- МЕНЮ ---------------");
-        System.out.println("ПОТРЕБИТЕЛ : " + User.activeUser.getName());
+        System.out.println(User.activeUser.getRole().getName() + " : " + User.activeUser.getName());
         System.out.println("------------------------------------");
         System.out.println("1 - Попълване на дневен отчет");
         System.out.println("2 - Показване на пълна статистика");
@@ -164,13 +172,13 @@ public class Menu {
         input = scanner.next();
         switch (input) {
             case "1":
-                employeeMenuDailyReport(scanner);
+                menuDailyReport(scanner);
                 break;
             case "2":
-                Employee.printReports(Employee.reportsByEmployee());
+                ReportGenerator.printReports(ReportGenerator.reportsByUser(User.activeUser.getName()));
                 break;
             case "3":
-                Employee.printReports(Employee.reportsByDate(scanner));
+                ReportGenerator.printReports(ReportGenerator.reportsByDate(scanner));
                 break;
             case "0":
                 exit();
@@ -181,7 +189,7 @@ public class Menu {
         employeeMenu(scanner);
     }
 
-    public static void employeeMenuDailyReport(Scanner scanner) {
+    public static void menuDailyReport(Scanner scanner) {
         String input;
         System.out.println("----------- ДНЕВЕН ОТЧЕТ -----------");
         System.out.println("1 - Дневен отчет за : " + AppConstants.toDayString);
@@ -192,10 +200,10 @@ public class Menu {
         input = scanner.next();
         switch (input) {
             case "1":
-                Employee.addDailyReport(scanner, AppConstants.toDay);
+                User.addDailyReport(scanner, AppConstants.toDay);
                 break;
             case "2":
-                Employee.addDailyReport(scanner, null);
+                User.addDailyReport(scanner, null);
                 break;
             case "0":
                 employeeMenu(scanner);
@@ -203,7 +211,7 @@ public class Menu {
             default:
                 System.out.println("Въведена е невалидна стойност!");
         }
-        employeeMenuDailyReport(scanner);
+        menuDailyReport(scanner);
     }
 
     public static void exit() {

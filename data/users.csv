@@ -1,8 +1,8 @@
-Александър Ганчев;admin;1;admin
-Андрей Димитров;admin;1234;admin
-Иван Иванов;user;1234;employee
-Петър Петров;ppetrov;1234;employee
-Надежда Петрова;npetrova;1234;employee
-Калоян Захариев;kzahariev;1234;employee
-Ивайло Стойчев;istoichev;1234;employee
-Симеон Тодоров;stodorov;1234;employee
+Александър Ганчев;admin;1;ADMIN
+Андрей Димитров;admin;1234;ADMIN
+Иван Иванов;user;1234;EMPLOYEE
+Петър Петров;ppetrov;1234;EMPLOYEE
+Надежда Петрова;npetrova;1234;EMPLOYEE
+Калоян Захариев;kzahariev;1234;EMPLOYEE
+Ивайло Стойчев;istoichev;1234;EMPLOYEE
+Симеон Тодоров;stodorov;1234;EMPLOYEE
