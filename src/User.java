@@ -49,6 +49,7 @@ public abstract class User {
         }
         return false;
     }
+
     public static boolean validateNewUser(String username, String name) {
         ArrayList<User> users = FileHandler.readUsers();
         for (int i = 0; i < users.size(); i++) {
@@ -57,6 +58,15 @@ public abstract class User {
             }
         }
         return true;
+    }
+
+    public static void printAllUsers() {
+        ArrayList<User> users = FileHandler.readUsers();
+        for (int i = 0; i < users.size(); i++) {
+            System.out.println("------------------------------------");
+            System.out.println(i + 1 + " - " + users.get(i).getRole().getName() + " : " + users.get(i).getName());
+            System.out.println("    username : " + users.get(i).getUsername());
+        }
     }
 
     @Override

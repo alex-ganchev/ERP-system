@@ -8,7 +8,7 @@ public class Admin extends User {
         super.setUsername(username);
         super.setPassword(password);
         super.setName(name);
-        super.setRole(Role.admin);
+        super.setRole(Role.ADMIN);
     }
 
     public static void addNewUser(Scanner scanner, Role role) {
@@ -21,9 +21,9 @@ public class Admin extends User {
         System.out.print("Въведете парола : ");
         String password = scanner.nextLine();
         if (User.validateNewUser(username, name)) {
-            if (role.equals(Role.admin)) {
+            if (role.equals(Role.ADMIN)) {
                 FileHandler.writeUser(new Admin(name, username, password));
-            } else if (role.equals(Role.employee)) {
+            } else if (role.equals(Role.EMPLOYEE)) {
                 FileHandler.writeUser(new Employee(name, username, password));
             } else {
                 System.out.println("Нещо се обърка!");

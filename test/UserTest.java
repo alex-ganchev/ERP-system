@@ -71,7 +71,7 @@ public class UserTest {
         //GIVEN
 
         //WHEN
-        boolean result = User.validateLogin(INVALID_USERNAME, VALID_NAME);
+        boolean result = User.validateNewUser(INVALID_USERNAME, VALID_NAME);
         //THEN
         Assertions.assertFalse(result);
     }
@@ -80,7 +80,7 @@ public class UserTest {
         //GIVEN
 
         //WHEN
-        boolean result = User.validateLogin(VALID_USERNAME, INVALID_NAME);
+        boolean result = User.validateNewUser(VALID_USERNAME, INVALID_NAME);
         //THEN
         Assertions.assertFalse(result);
     }
@@ -89,7 +89,7 @@ public class UserTest {
         //GIVEN
 
         //WHEN
-        boolean result = User.validateLogin(VALID_USERNAME, VALID_NAME);
+        boolean result = User.validateNewUser(VALID_USERNAME, VALID_NAME);
         //THEN
         Assertions.assertFalse(result);
     }

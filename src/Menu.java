@@ -23,9 +23,9 @@ public class Menu {
     }
 
     private static void defineMenu(Scanner scanner) {
-        if (User.activeUser.getRole().equals(Role.admin)) {
+        if (User.activeUser.getRole().equals(Role.ADMIN)) {
             adminMenu(scanner);
-        } else if (User.activeUser.getRole().equals(Role.employee)) {
+        } else if (User.activeUser.getRole().equals(Role.EMPLOYEE)) {
             employeeMenu(scanner);
         } else {
             System.out.println("Нещо се обърка!");
@@ -35,7 +35,7 @@ public class Menu {
     public static void adminMenu(Scanner scanner) {
         String input;
         System.out.println("--------------- МЕНЮ ---------------");
-        System.out.println("АДМИНИСТРАТОР : " + User.activeUser.getName());
+        System.out.println(User.activeUser.getRole().getName() + " : " + User.activeUser.getName());
         System.out.println("------------------------------------");
         System.out.println("1 - Управление на клиенти");
         System.out.println("2 - Управление на потребители");
@@ -100,16 +100,20 @@ public class Menu {
             System.out.println("------------------------------------");
             System.out.println("1 - Добавяне на служител");
             System.out.println("2 - Добавяне на администратор");
+            System.out.println("3 - Списък на потребителите");
             System.out.println("0 - Изход");
             System.out.println("------------------------------------");
             System.out.print("Вашият избор : ");
             input = scanner.next();
             switch (input) {
                 case "1":
-                    Admin.addNewUser(scanner, Role.employee);
+                    Admin.addNewUser(scanner, Role.EMPLOYEE);
                     break;
                 case "2":
-                    Admin.addNewUser(scanner, Role.admin);
+                    Admin.addNewUser(scanner, Role.ADMIN);
+                    break;
+                case "3":
+                    User.printAllUsers();
                     break;
                 case "0":
                     System.out.println("Избрахте изход!");
@@ -153,7 +157,7 @@ public class Menu {
     public static void employeeMenu(Scanner scanner) {
         String input;
         System.out.println("--------------- МЕНЮ ---------------");
-        System.out.println("ПОТРЕБИТЕЛ : " + User.activeUser.getName());
+        System.out.println(User.activeUser.getRole().getName() + " : " + User.activeUser.getName());
         System.out.println("------------------------------------");
         System.out.println("1 - Попълване на дневен отчет");
         System.out.println("2 - Показване на пълна статистика");
@@ -167,10 +171,10 @@ public class Menu {
                 employeeMenuDailyReport(scanner);
                 break;
             case "2":
-                Employee.printReports(Employee.reportsByEmployee());
+                ReportGenerator.printReports(ReportGenerator.reportsByUser(User.activeUser));
                 break;
             case "3":
-                Employee.printReports(Employee.reportsByDate(scanner));
+                ReportGenerator.printReports(ReportGenerator.reportsByDate(scanner));
                 break;
             case "0":
                 exit();

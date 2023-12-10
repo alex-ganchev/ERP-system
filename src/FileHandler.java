@@ -75,9 +75,9 @@ public class FileHandler {
             fileReader = new Scanner(AppConstants.FILE_USERS);
             while (fileReader.hasNextLine()) {
                 String[] splitData = fileReader.nextLine().split(";");
-                if (splitData[3].equals("employee")) {
+                if (splitData[3].equals(Role.EMPLOYEE.toString())) {
                     users.add(new Employee(splitData[0], splitData[1], splitData[2]));
-                } else if (splitData[3].equals("admin")) {
+                } else if (splitData[3].equals(Role.ADMIN.toString())) {
                     users.add(new Admin(splitData[0], splitData[1], splitData[2]));
                 }
             }
