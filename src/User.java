@@ -76,7 +76,7 @@ public abstract class User {
             } while (!Validation.isTimeValid(input, date));
             time = Double.parseDouble(input);
             DailyReport dailyReport = new DailyReport(date, selectedClient, activeUser, time);
-            FileHandler.writeReport(dailyReport);
+            FileHandler.writeObject(dailyReport,AppConstants.FILE_DAILY_REPORTS);
         }
     }
 

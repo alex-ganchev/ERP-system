@@ -192,7 +192,7 @@ public class Menu {
     public static void menuDailyReport(Scanner scanner) {
         String input;
         System.out.println("----------- ДНЕВЕН ОТЧЕТ -----------");
-        System.out.println("1 - Дневен отчет за : " + AppConstants.toDayString);
+        System.out.println("1 - Дневен отчет за : " + AppConstants.toDay.format(AppConstants.DATE_FORMAT));
         System.out.println("2 - Дневен отчет за минал период");
         System.out.println("0 - Изход");
         System.out.println("------------------------------------");

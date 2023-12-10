@@ -1,6 +1,3 @@
-import java.time.LocalDate;
-import java.util.*;
-
 public class Employee extends User {
 
     public Employee(String name, String username, String password) {

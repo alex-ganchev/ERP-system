@@ -22,9 +22,9 @@ public class Admin extends User {
         String password = scanner.nextLine();
         if (Validation.validateNewUser(username, name)) {
             if (role.equals(Role.ADMIN)) {
-                FileHandler.writeUser(new Admin(name, username, password));
+                FileHandler.writeObject(new Admin(name, username, password),AppConstants.FILE_USERS);
             } else if (role.equals(Role.EMPLOYEE)) {
-                FileHandler.writeUser(new Employee(name, username, password));
+                FileHandler.writeObject(new Employee(name, username, password),AppConstants.FILE_USERS);
             } else {
                 System.out.println("Нещо се обърка!");
             }
@@ -47,7 +47,7 @@ public class Admin extends User {
         } while (!Validation.isDateFormatValid(input));
         LocalDate projectDate = LocalDate.parse(input, AppConstants.DATE_FORMAT);
         Client newClient = new Client(clientName, projectName, projectDate);
-        FileHandler.writeClient(newClient);
+        FileHandler.writeObject(newClient,AppConstants.FILE_CLIENTS);
     }
 
     public static void readReportsByNumberOfWeek(Scanner scanner) {
