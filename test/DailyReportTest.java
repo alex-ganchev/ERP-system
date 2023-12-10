@@ -1,9 +1,9 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
 import java.time.LocalDate;
 
 public class DailyReportTest {
-    private static final String EXPECTED = "11/11/2023;Тестов клиент;Тестов проект;Тестов служител;7.7";
     @Test
     void testToStringReturnValidOutput() {
         //GIVEN
@@ -11,6 +11,7 @@ public class DailyReportTest {
         //WHEN
         String result = testDailyReport.toString();
         //THEN
-        Assertions.assertEquals(EXPECTED,result);
+        String expected = "11/11/2023;Тестов клиент;Тестов проект;Тестов служител;7.7";
+        Assertions.assertEquals(expected, result);
     }
 }

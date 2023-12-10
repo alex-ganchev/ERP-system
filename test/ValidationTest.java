@@ -19,14 +19,16 @@ public class ValidationTest {
     private static final String VALID_DATE_FORMAT = "23/12/2023";
     private static final String INVALID_DATE_FORMAT = "2023-12-23";
     private static final String VALID_TIME = "3.5";
-    private static final String INVALID_TIME = "стринг";
-    private static final String INVALID_DATE_AFTER_NOW = "31/12/2222";
-    private static final String INVALID_DATE_BEFORE_NOW = "01/12/2023";
+    private static final String INVALID_TIME_STRING = "стринг";
+    private static final String INVALID_TIME_NEGATIVE = "-5";
+    private static final String INVALID_TIME_OVER_MAX_WORKING_TIME = "25";
+    private static final String DATE_AFTER_NOW = LocalDate.now().plusDays(1).format(AppConstants.DATE_FORMAT).toString();
+    private static final String DATE_BEFORE_NOW = LocalDate.now().minusDays(1).format(AppConstants.DATE_FORMAT).toString();
 
 
     @BeforeEach
     public void setUp() {
-
+        User.activeUser = testUser;
     }
 
     @Test
@@ -122,7 +124,6 @@ public class ValidationTest {
     @Test
     void testIsTimeValidReturnTrueWhenTimeIsValid() {
         //GIVEN
-        User.activeUser = testUser;
         //WHEN
         boolean result = Validation.isTimeValid(VALID_TIME, LocalDate.parse(VALID_DATE_FORMAT, AppConstants.DATE_FORMAT));
         //THEN
@@ -132,9 +133,26 @@ public class ValidationTest {
     @Test
     void testIsTimeValidReturnFalseWhenTimeIsInvalid() {
         //GIVEN
-        User.activeUser = testUser;
         //WHEN
-        boolean result = Validation.isTimeValid(INVALID_TIME, LocalDate.parse(VALID_DATE_FORMAT, AppConstants.DATE_FORMAT));
+        boolean result = Validation.isTimeValid(INVALID_TIME_STRING, LocalDate.parse(VALID_DATE_FORMAT, AppConstants.DATE_FORMAT));
+        //THEN
+        Assertions.assertFalse(result);
+    }
+
+    @Test
+    void testIsTimeValidReturnFalseWhenTimeIsNegative() {
+        //GIVEN
+        //WHEN
+        boolean result = Validation.isTimeValid(INVALID_TIME_NEGATIVE, LocalDate.parse(VALID_DATE_FORMAT, AppConstants.DATE_FORMAT));
+        //THEN
+        Assertions.assertFalse(result);
+    }
+
+    @Test
+    void testIsTimeValidReturnFalseWhenTimeIsOverMaxWorkingTime() {
+        //GIVEN
+        //WHEN
+        boolean result = Validation.isTimeValid(INVALID_TIME_OVER_MAX_WORKING_TIME, LocalDate.parse(VALID_DATE_FORMAT, AppConstants.DATE_FORMAT));
         //THEN
         Assertions.assertFalse(result);
     }
@@ -143,7 +161,7 @@ public class ValidationTest {
     void testIsDateAfterNowReturnTrueWhenDateIsAfter() {
         //GIVEN
         //WHEN
-        boolean result = Validation.isDateAfterNow(INVALID_DATE_AFTER_NOW);
+        boolean result = Validation.isDateAfterNow(DATE_AFTER_NOW);
         //THEN
         Assertions.assertTrue(result);
     }
@@ -152,7 +170,7 @@ public class ValidationTest {
     void testIsDateAfterNowReturnFalseWhenDateIsBefore() {
         //GIVEN
         //WHEN
-        boolean result = Validation.isDateAfterNow(INVALID_DATE_BEFORE_NOW);
+        boolean result = Validation.isDateAfterNow(DATE_BEFORE_NOW);
         //THEN
         Assertions.assertFalse(result);
     }
