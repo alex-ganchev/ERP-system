@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class Admin extends User {
+public class Admin extends User{
     public Admin(String name, String username, String password) {
         super.setUsername(username);
         super.setPassword(password);
@@ -58,15 +58,7 @@ public class Admin extends User {
         System.out.println("------------------------------------");
         List<DailyReport> reports = FileHandler.readReports();
         List<DailyReport> reportsByNumOfWeek = reports.stream().filter(dailyReport -> numberOfWeek == dateNumderOfWeek(dailyReport.getDate().format(AppConstants.DATE_FORMAT))).collect(Collectors.toList());
-        if (reportsByNumOfWeek.size() == 0) {
-            System.out.println("Няма намерени резултати!");
-        } else {
-            System.out.println("             РЕЗУЛТАТИ");
-            System.out.println("------------------------------------");
-            for (DailyReport report : reportsByNumOfWeek) {
-                System.out.println("Дата : " + report.getDate() + "\nКлиент : " + report.getClient().getName() + "\nПроект : " + report.getClient().getProject() + "\nСлужител : " + report.getEmployee().getName() + "\nВреме : " + report.getTime() + "\n");
-            }
-        }
+        Report.printReportsByWeek(reportsByNumOfWeek);
     }
 
     private static int dateNumderOfWeek(String date) {
@@ -107,7 +99,7 @@ public class Admin extends User {
             case 2:
                 daysToDate += 31;
             case 1:
-                daysToDate += 0;
+                daysToDate += -1;
         }
         daysToDate += days;
         return daysToDate;

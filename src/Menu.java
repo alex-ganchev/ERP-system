@@ -175,10 +175,10 @@ public class Menu {
                 menuDailyReport(scanner);
                 break;
             case "2":
-                Report.printReports(Report.reportsByUser(User.activeUser.getName()));
+                Report.printReportsByUser(Report.reportsByUser(User.activeUser.getName()));
                 break;
             case "3":
-                Report.printReports(Report.reportsByDate(scanner));
+                Report.printReportsByUser(Report.reportsByDate(scanner));
                 break;
             case "0":
                 exit();

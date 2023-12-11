@@ -2,7 +2,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public abstract class User {
+public abstract class User{
     public static User activeUser;
     private String name;
     private String username;
