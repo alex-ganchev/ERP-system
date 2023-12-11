@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class ValidationTest {
     private static final User testUser = new Employee("Тестов служител");
-    private static final Client testClient = new Client("Тестов клиент", "Тестов проект", LocalDate.now());
+    private static final Client testClient = new Client("Тестов клиент", new Project("Тестов проект"), LocalDate.now());
     private static final String VALID_USERNAME = "user";
     private static final String VALID_PASSWORD = "1234";
     private static final String INVALID_USERNAME = "invalidusername";

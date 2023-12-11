@@ -29,7 +29,7 @@ public class FileHandler {
             Scanner fileReader = new Scanner(AppConstants.FILE_CLIENTS);
             while (fileReader.hasNextLine()) {
                 String[] splitData = fileReader.nextLine().split(";");
-                clients.add(new Client(splitData[0], splitData[1], LocalDate.parse(splitData[2], AppConstants.DATE_FORMAT)));
+                clients.add(new Client(splitData[0], new Project(splitData[1]), LocalDate.parse(splitData[2], AppConstants.DATE_FORMAT)));
             }
             fileReader.close();
         } catch (FileNotFoundException e) {
@@ -67,7 +67,7 @@ public class FileHandler {
             Scanner fileReader = new Scanner(AppConstants.FILE_DAILY_REPORTS);
             while (fileReader.hasNextLine()) {
                 String[] splitData = fileReader.nextLine().split(";");
-                reports.add(new DailyReport(LocalDate.parse(splitData[0], AppConstants.DATE_FORMAT), new Client(splitData[1], splitData[2]), new Employee(splitData[3]), Double.valueOf(splitData[4])));
+                reports.add(new DailyReport(LocalDate.parse(splitData[0], AppConstants.DATE_FORMAT), new Client(splitData[1], new Project(splitData[2])), new Employee(splitData[3]), Double.valueOf(splitData[4])));
             }
             fileReader.close();
         } catch (FileNotFoundException e) {

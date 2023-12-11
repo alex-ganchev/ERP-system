@@ -46,7 +46,7 @@ public class Admin extends User {
             input = scanner.nextLine();
         } while (!Validation.isDateFormatValid(input));
         LocalDate projectDate = LocalDate.parse(input, AppConstants.DATE_FORMAT);
-        Client newClient = new Client(clientName, projectName, projectDate);
+        Client newClient = new Client(clientName, new Project(projectName), projectDate);
         FileHandler.writeObject(newClient,AppConstants.FILE_CLIENTS);
     }
 

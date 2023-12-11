@@ -20,6 +20,7 @@ public abstract class User {
     public String getPassword() {
         return password;
     }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -76,7 +77,7 @@ public abstract class User {
             } while (!Validation.isTimeValid(input, date));
             time = Double.parseDouble(input);
             DailyReport dailyReport = new DailyReport(date, selectedClient, activeUser, time);
-            FileHandler.writeObject(dailyReport,AppConstants.FILE_DAILY_REPORTS);
+            FileHandler.writeObject(dailyReport, AppConstants.FILE_DAILY_REPORTS);
         }
     }
 
