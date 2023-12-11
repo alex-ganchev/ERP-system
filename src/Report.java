@@ -3,7 +3,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Report {
-    public static void printReports(List<DailyReport> reports) {
+    public static void printReportsByUser(List<DailyReport> reports) {
         if (reports.isEmpty()) {
             System.out.println("Няма намерени резултати!");
         } else {
@@ -30,6 +30,32 @@ public class Report {
             }
         }
     }
+    public static void printReportsByWeek(List<DailyReport> reports) {
+        if (reports.isEmpty()) {
+            System.out.println("Няма намерени резултати!");
+        } else {
+            Map<LocalDate, List<DailyReport>> groupedDailyReports = reports.stream()
+                    .sorted(Comparator.comparing(DailyReport::getDate))
+                    .collect(Collectors.groupingBy(DailyReport::getDate, TreeMap::new, Collectors.toList()));
+            System.out.println("-------------------------------------------------------------------------------------------");
+            System.out.printf("%-13s %-20s %-8s %-24s %-25s%n", "Дата", "Служител", "Часове", "Клиент", "Проект");
+            System.out.println("-------------------------------------------------------------------------------------------");
+
+            for (Map.Entry<LocalDate, List<DailyReport>> entry : groupedDailyReports.entrySet()) {
+                LocalDate key = entry.getKey();
+                List<DailyReport> value = entry.getValue();
+                for (int i = 0; i < value.size(); i++) {
+                    System.out.printf("%-13s %-20s %-8s %-24s %-25s%n",
+                            (i == 0 ? key.format(AppConstants.DATE_FORMAT) : ""),
+                            value.get(i).getEmployee().getName(),
+                            value.get(i).getTime(),
+                            value.get(i).getClient().getName(),
+                            value.get(i).getClient().getProject());
+                }
+                System.out.println("-------------------------------------------------------------------------------------------");
+            }
+        }
+    }
 
     public static List<DailyReport> reportsByUser(String name) {
         List<DailyReport> reports = FileHandler.readReports();
@@ -46,7 +72,7 @@ public class Report {
         System.out.print("Въведете име на служител : ");
         String employeeName = scanner.nextLine();
         System.out.println("------------------------------------");
-        Report.printReports(Report.reportsByUser(employeeName));
+        Report.printReportsByUser(Report.reportsByUser(employeeName));
     }
 
     public static List<DailyReport> reportsByDate(Scanner scanner) {
