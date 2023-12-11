@@ -4,14 +4,14 @@ import java.util.Scanner;
 
 public class Client {
     private String name;
-    private String project;
+    private Project project;
     private LocalDate date;
 
     public String getName() {
         return name;
     }
 
-    public String getProject() {
+    public Project getProject() {
         return project;
     }
 
@@ -19,14 +19,14 @@ public class Client {
         return date;
     }
 
-    public Client(String client, String project, LocalDate date) {
-        this.name = client;
+    public Client(String name, Project project, LocalDate date) {
+        this.name = name;
         this.project = project;
         this.date = date;
     }
 
-    public Client(String client, String project) {
-        this.name = client;
+    public Client(String name, Project project) {
+        this.name = name;
         this.project = project;
     }
 
@@ -59,6 +59,6 @@ public class Client {
 
     @Override
     public String toString() {
-        return name + ";" + project + ";" + date.format(AppConstants.DATE_FORMAT);
+        return name + ";" + project.getName() + ";" + date.format(AppConstants.DATE_FORMAT);
     }
 }

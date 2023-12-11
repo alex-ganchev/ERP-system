@@ -7,7 +7,7 @@ public class DailyReportTest {
     @Test
     void testToStringReturnValidOutput() {
         //GIVEN
-        DailyReport testDailyReport = new DailyReport(LocalDate.parse("11/11/2023", AppConstants.DATE_FORMAT), new Client("Тестов клиент", "Тестов проект"), new Employee("Тестов служител"), 7.7);
+        DailyReport testDailyReport = new DailyReport(LocalDate.parse("11/11/2023", AppConstants.DATE_FORMAT), new Client("Тестов клиент", new Project("Тестов проект")), new Employee("Тестов служител"), 7.7);
         //WHEN
         String result = testDailyReport.toString();
         //THEN
