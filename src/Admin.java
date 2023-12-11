@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class Admin extends User {
+public class Admin extends User{
     public Admin(String name, String username, String password) {
         super.setUsername(username);
         super.setPassword(password);

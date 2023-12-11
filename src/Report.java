@@ -36,6 +36,7 @@ public class Report {
         } else {
             Map<LocalDate, List<DailyReport>> groupedDailyReports = reports.stream()
                     .sorted(Comparator.comparing(DailyReport::getDate))
+                    .sorted(Comparator.comparing(user -> user.getEmployee().getName()))
                     .collect(Collectors.groupingBy(DailyReport::getDate, TreeMap::new, Collectors.toList()));
             System.out.println("-------------------------------------------------------------------------------------------");
             System.out.printf("%-13s %-20s %-8s %-24s %-25s%n", "Дата", "Служител", "Часове", "Клиент", "Проект");
