@@ -11,9 +11,9 @@ public class Report {
                     .sorted(Comparator.comparing(DailyReport::getDate))
                     .collect(Collectors.groupingBy(DailyReport::getDate, TreeMap::new, Collectors.toList()));
             System.out.printf("%54s\n", "СТАТИСТИКА ЗА " + reports.get(0).getEmployee().getName().toUpperCase());
-            System.out.println("----------------------------------------------------------------------------------------");
-            System.out.printf("%-13s %-13s %-12s %-24s %-25s%n", "Дата", "Общо часове", "Часове", "Клиент", "Проект");
-            System.out.println("----------------------------------------------------------------------------------------");
+           System.out.print("----------------------------------------------------------------------------------------\n");
+           System.out.printf("%-13s %-13s %-12s %-24s %-25s%n", "Дата", "Общо часове", "Часове", "Клиент", "Проект");
+           System.out.print("----------------------------------------------------------------------------------------\n");
 
             for (Map.Entry<LocalDate, List<DailyReport>> entry : groupedDailyReports.entrySet()) {
                 LocalDate key = entry.getKey();
@@ -26,7 +26,7 @@ public class Report {
                             value.get(i).getClient().getName(),
                             value.get(i).getClient().getProject());
                 }
-                System.out.println("----------------------------------------------------------------------------------------");
+                System.out.print("----------------------------------------------------------------------------------------\n");
             }
         }
     }
@@ -38,9 +38,9 @@ public class Report {
                     .sorted(Comparator.comparing(DailyReport::getDate))
                     .sorted(Comparator.comparing(user -> user.getEmployee().getName()))
                     .collect(Collectors.groupingBy(DailyReport::getDate, TreeMap::new, Collectors.toList()));
-            System.out.println("-------------------------------------------------------------------------------------------");
+            System.out.print("-------------------------------------------------------------------------------------------\n");
             System.out.printf("%-13s %-20s %-8s %-24s %-25s%n", "Дата", "Служител", "Часове", "Клиент", "Проект");
-            System.out.println("-------------------------------------------------------------------------------------------");
+            System.out.print("-------------------------------------------------------------------------------------------\n");
 
             for (Map.Entry<LocalDate, List<DailyReport>> entry : groupedDailyReports.entrySet()) {
                 LocalDate key = entry.getKey();
@@ -53,7 +53,7 @@ public class Report {
                             value.get(i).getClient().getName(),
                             value.get(i).getClient().getProject());
                 }
-                System.out.println("-------------------------------------------------------------------------------------------");
+                System.out.print("-------------------------------------------------------------------------------------------\n");
             }
         }
     }
