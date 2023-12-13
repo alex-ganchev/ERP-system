@@ -1,5 +1,3 @@
-import org.junit.Before;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,30 +6,17 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ReportTest {
 
     private static final ByteArrayOutputStream OUTPUT_STREAM_CAPTURE = new ByteArrayOutputStream();
-    //private static final PrintStream STANDART_OUT = System.out;
-    //private static final List<DailyReport> testDailyReports = new ArrayList<>();
-
-    @Before
-    public void setUp() {
-        //System.setOut(new PrintStream(OUTPUT_STREAM_CAPTURE));
-    }
 
     @BeforeEach
     public void beforeEach() {
         System.setOut(new PrintStream(OUTPUT_STREAM_CAPTURE));
         OUTPUT_STREAM_CAPTURE.reset();
-
     }
-//    @AfterEach
-//    public void restoreStreams() {
-//        System.setOut(STANDART_OUT);
-//    }
 
     @Test
     void testPrintReportByUserReturnCorrectOutputWithValidDailyReport() {
@@ -88,9 +73,26 @@ public class ReportTest {
     void testPrintReportByUserReturnCorrectOutputWithEmptyDailyReport() {
         //GIVEN
         List<DailyReport> testDailyReports = new ArrayList<>();
+        //WHEN
         Report.printReportsByUser(testDailyReports);
         String result = OUTPUT_STREAM_CAPTURE.toString().trim();
         //THEN
         Assertions.assertEquals("Няма намерени резултати!", result);
+    }
+    @Test
+    void testReportByUserReturnCorrectListWhenUserIsNotValid() {
+        //GIVEN
+        //WHEN
+        List<DailyReport> result = Report.reportsByUser("Несъществуващ служител");
+        //THEN
+        Assertions.assertTrue(result.isEmpty());
+    }
+    @Test
+    void testReportByUserReturnCorrectListWhenUserIsValid() {
+        //GIVEN
+        //WHEN
+        List<DailyReport> result = Report.reportsByUser("Иван Иванов");
+        //THEN
+        Assertions.assertFalse(result.isEmpty());
     }
 }
