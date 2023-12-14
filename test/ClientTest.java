@@ -10,7 +10,7 @@ public class ClientTest {
     @Test
     void testToStringReturnValidOutputForClient() {
         //GIVEN
-        Client testClient = new Client("Тестов клиент", new Project("Тестов проект"), LocalDate.now());
+        Client testClient = new Client("Тестов клиент", new Project("Тестов проект"), LocalDate.parse("13/12/2023", AppConstants.DATE_FORMAT));
         //WHEN
         String result = testClient.toString();
         //THEN
