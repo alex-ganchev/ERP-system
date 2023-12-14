@@ -1,38 +1,69 @@
-import org.junit.Assert;
-import org.junit.Before;
+
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
 
 public class FileHandlerTest {
-    Employee employee;
-    DailyReport dailyReport;
-    LocalDate date;
-
-    @Before
-    public void setUp() {
-        employee = new Employee("ТестовСлужител", "testEmployee", "1234");
-        date = LocalDate.parse("2023-12-12");
-        dailyReport = new DailyReport(date, new Client("ТД на НАП - Разград", new Project("Профилактика на UPS-и"), date), employee, 3);
-    }
 
     @Test
-    public void testAddNewUser() {
-        int firstLen = FileHandler.readUsers().size();
-        int expectedResult = firstLen;
-        if (Validation.validateNewUser(employee.getUsername(), employee.getName())) {
-            FileHandler.writeObject(employee, AppConstants.FILE_USERS);
-            expectedResult++;
+    public void testWriteDailyReportWithCorrectInput() {
+        //GIVEN
+        DailyReport testDailyReport = new DailyReport(LocalDate.parse("11/11/2023", AppConstants.DATE_FORMAT), new Client("Тестов клиент", new Project("Тестов проект")), new Employee("Тестов служител"), 7.7);
+        //WHEN
+        FileHandler.writeObject(testDailyReport, new File("testdata/reports.csv"));
+        //THEN
+        String result = "";
+        try {
+            Scanner fileReader = new Scanner(new File("testdata/reports.csv"));
+            while (fileReader.hasNextLine()) {
+                result = fileReader.nextLine();
+            }
+            fileReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
         }
-        Assert.assertEquals(expectedResult, FileHandler.readUsers().size());
+        Assertions.assertEquals(testDailyReport.toString(),result);
     }
-
     @Test
-    public void testWriteDailyReport() {
-        int expectedRes = FileHandler.readReports().size() + 1;
-        FileHandler.writeObject(dailyReport, AppConstants.FILE_DAILY_REPORTS);
-        Assert.assertEquals(expectedRes, FileHandler.readReports().size());
+    public void testWriteClientWithCorrectInput() {
+        //GIVEN
+        Client testClient = new Client("Тестов клиент", new Project("Тестов проект"), LocalDate.parse("13/12/2023", AppConstants.DATE_FORMAT));
+        //WHEN
+        FileHandler.writeObject(testClient, new File("testdata/clients.csv"));
+        //THEN
+        String result = "";
+        try {
+            Scanner fileReader = new Scanner(new File("testdata/clients.csv"));
+            while (fileReader.hasNextLine()) {
+                result = fileReader.nextLine();
+            }
+            fileReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+        Assertions.assertEquals(testClient.toString(),result);
+    }
+    @Test
+    public void testWriteUserWithCorrectInput() {
+        //GIVEN
+        User testUser = new Employee("Тестово име","testusername","testpassword");
+        //WHEN
+        FileHandler.writeObject(testUser, new File("testdata/users.csv"));
+        //THEN
+        String result = "";
+        try {
+            Scanner fileReader = new Scanner(new File("testdata/users.csv"));
+            while (fileReader.hasNextLine()) {
+                result = fileReader.nextLine();
+            }
+            fileReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+        Assertions.assertEquals(testUser.toString(),result);
     }
 }
