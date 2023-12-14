@@ -30,6 +30,7 @@ public class Report {
             }
         }
     }
+
     public static void printReportsByWeek(List<DailyReport> reports) {
         if (reports.isEmpty()) {
             System.out.println("Няма намерени резултати!");

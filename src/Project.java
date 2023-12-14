@@ -1,4 +1,4 @@
-public class Project {
+public class  Project {
     private String name;
 
     public String getName() {
